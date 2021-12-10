@@ -45,13 +45,13 @@ class Stack():
         self.contents = bottom + top
 
 
-    def get_from_top(self, last=1) -> Card:
+    def peek_from_top(self, last=1) -> Card:
         """ Returns the topmost card(s) from the Stack """
         index: int = 0 - last
         return self.contents[index]
 
 
-    def get_from_bottom(self, first=1) -> Card:
+    def peek_from_bottom(self, first=1) -> Card:
         """ Returns the buried-most card(s) from the Stack. Not useful in standard Solitaire rules. """
         index: int = 0 + first
         return self.contents[index]
