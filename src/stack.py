@@ -4,14 +4,14 @@ from src.card import Card
 
 class Stack():
 
-    def __init__(self):
+    def __init__(self) -> None:
         self.contents: List[Card|None] = list()
 
 
     @property
-    def length(self):
+    def length(self) -> int:
         return len(self.contents)
 
     
-    def add_card(card, to="top"):
+    def add_card(card, to="top") -> None:
         pass
