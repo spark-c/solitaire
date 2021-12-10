@@ -13,6 +13,11 @@ class Card:
     def visible(self) -> bool:
         return self._visible
 
+    
+    @property
+    def color(self) -> str:
+        return "red" if self.suit in ["hearts", "diamonds"] else "black"
+
 
     @property
     def face_value(self, peek=True) -> str:

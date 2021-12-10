@@ -12,6 +12,16 @@ class TestCard(unittest.TestCase):
         self.assertEqual(card.suit, "hearts")
 
     
+    def test_color_red(self):
+        card = Card(value=1, suit="hearts")
+        self.assertEqual(card.color, "red")
+
+
+    def test_color_black(self):
+        card = Card(value=3, suit="spades")
+        self.assertEqual(card.color, "black")
+
+    
     def test_starts_not_visible(self):
         card = Card(value=1, suit="hearts")
         self.assertFalse(card.visible)
