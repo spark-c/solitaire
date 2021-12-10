@@ -1,6 +1,7 @@
 import unittest
 import collections
 from src.deck import Deck
+from src.card import Card
 
 class TestDeck(unittest.TestCase):
     def test_has_52_cards(self):
@@ -24,9 +25,19 @@ class TestDeck(unittest.TestCase):
             self.assertEqual(c[str(value)], 4)
 
 
-    # def test_remove_card_from_deck(self):
-    #     deck = Deck()
-    #     deck.remove((1, "hearts"))
+    def test_shuffle_deck(self):
+        """ Checks that the first three cards are no longer in original order. Could rarely false-negative. """
+        deck = Deck()
+        deck.shuffle()
+        self.assertNotEqual(deck.contents[:3], [Card(1, "hearts"), Card(2, "hearts"), Card(3, "hearts")])
+
+
+    def test_pre_deal(self):
+        """ Should be handing back a list with seven Stacks, i.e. the initial game columns """
+        deck = Deck()
+        output = deck.pre_deal()
+        for i in range(7):
+            self.assertEqual(output[i].length, i)
 
 
 if __name__ == "__main__":
