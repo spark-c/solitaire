@@ -1,13 +1,20 @@
+from dataclasses import dataclass
+
+
+@dataclass
 class Card:
-    def __init__(self, value:int, suit:str, *, visible:bool=False) -> None:
-        self.value: int = value
-        self.suit: str = suit
-        self.visible = visible
-
+    value: int
+    suit: str
+    _visible: bool = False
     
+    @property
+    def visible(self) -> bool:
+        return self._visible
+
+
     def reveal(self) -> None:
-        self.visible = True
+        self._visible = True
 
-    
+
     def hide(self) -> None:
-        self.visible = False
+        self._visible = False

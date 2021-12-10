@@ -24,7 +24,7 @@ class TestCard(unittest.TestCase):
 
 
     def test_hide_visible_card(self):
-        card = Card(value=1, suit="hearts", visible=True)
+        card = Card(value=1, suit="hearts", _visible=True)
         card.hide()
         self.assertFalse(card.visible)
 
