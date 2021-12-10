@@ -33,6 +33,32 @@ class TestStack(unittest.TestCase):
         self.assertEqual(s.contents[0], three_spades.contents[0])
 
 
+    def test_pop_from_top(self):
+        s = Stack(
+            input=[
+                Card(1, "hearts"),
+                Card(3, "spades"),
+                Card(5, "diamonds")
+            ]
+        )
+        new_stack = s.pop_from_top(last=2)
+        self.assertEqual(s.length, 1)
+        self.assertEqual(new_stack.contents, [Card(3, "spades"), Card(5, "diamonds")])
+
+
+    def test_pop_from_bottom(self):
+        s = Stack(
+            input=[
+                Card(1, "hearts"),
+                Card(3, "spades"),
+                Card(5, "diamonds")
+            ]
+        )
+        new_stack = s.pop_from_bottom(first=2)
+        self.assertEqual(s.length, 1)
+        self.assertEqual(new_stack.contents, [Card(1, "hearts"), Card(3, "spades")])
+
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -2,7 +2,7 @@ from typing import List
 from src.card import Card
 
 
-class Stack():
+class Stack:
 
     def __init__(self, input=None) -> None:
         # default behavior
@@ -45,13 +45,30 @@ class Stack():
         self.contents = bottom + top
 
 
-    def peek_from_top(self, last=1) -> Card:
+    # TODO: Figure out how to add return type "Stack" without getting NameErrors
+    def pop_from_top(self, last=1):
+        """ Pops and returns the topmost card(s) from the Stack """
+        returnable: List[Card] = list()
+        for i in range(last):
+            returnable.insert(0, self.contents.pop(-1))
+        return Stack(input=returnable)
+
+
+    def pop_from_bottom(self, first=1):
+        """ Pops and returns the buried-most card(s) from the Stack. Not useful in standard Solitaire rules. """
+        returnable: List[Card] = list()
+        for i in range(first):
+            returnable.append(self.contents.pop(0))
+        return Stack(input=returnable)
+
+
+    def peek_from_top(self, last=1):
         """ Returns the topmost card(s) from the Stack """
         index: int = 0 - last
         return self.contents[index]
 
 
-    def peek_from_bottom(self, first=1) -> Card:
+    def peek_from_bottom(self, first=1):
         """ Returns the buried-most card(s) from the Stack. Not useful in standard Solitaire rules. """
         index: int = 0 + first
         return self.contents[index]
