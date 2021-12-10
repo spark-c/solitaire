@@ -1,8 +1,8 @@
+from src.stack import Stack
 from src.card import Card
-import pprint
 
 
-class Deck:
+class Deck(Stack):
 
     def __init__(self):
         self.all_cards = []
@@ -15,7 +15,3 @@ class Deck:
     @property
     def length(self):
         return len(self.all_cards)
-        
-        
-    def check(self):
-        pprint.pprint([(card.suit, card.value) for card in self.all_cards])
