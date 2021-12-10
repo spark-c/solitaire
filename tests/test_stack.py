@@ -12,8 +12,8 @@ class TestStack(unittest.TestCase):
 
     def test_add_card_to_top_of_stack(self):
         s = Stack()
-        ace_hearts = Stack(input=[Card(1, "hearts")])
-        three_spades = Stack(input=[Card(3, "spades")])
+        ace_hearts = Stack(input=[Card(1, Card.HEARTS)])
+        three_spades = Stack(input=[Card(3, Card.SPADES)])
 
         s.add_cards(ace_hearts.contents)
         s.add_cards(three_spades.contents)
@@ -23,8 +23,8 @@ class TestStack(unittest.TestCase):
 
     def test_add_card_to_bottom_of_stack(self):
         s = Stack()        
-        ace_hearts = Stack(input=[Card(1, "hearts")])
-        three_spades = Stack(input=[Card(3, "spades")])
+        ace_hearts = Stack(input=[Card(1, Card.HEARTS)])
+        three_spades = Stack(input=[Card(3, Card.SPADES)])
 
 
         s.add_cards(ace_hearts.contents)
@@ -36,27 +36,27 @@ class TestStack(unittest.TestCase):
     def test_pop_from_top(self):
         s = Stack(
             input=[
-                Card(1, "hearts"),
-                Card(3, "spades"),
-                Card(5, "diamonds")
+                Card(1, Card.HEARTS),
+                Card(3, Card.SPADES),
+                Card(5, Card.DIAMONDS)
             ]
         )
         new_stack = s.pop_from_top(last=2)
         self.assertEqual(s.length, 1)
-        self.assertEqual(new_stack.contents, [Card(3, "spades"), Card(5, "diamonds")])
+        self.assertEqual(new_stack.contents, [Card(3, Card.SPADES), Card(5, Card.DIAMONDS)])
 
 
     def test_pop_from_bottom(self):
         s = Stack(
             input=[
-                Card(1, "hearts"),
-                Card(3, "spades"),
-                Card(5, "diamonds")
+                Card(1, Card.HEARTS),
+                Card(3, Card.SPADES),
+                Card(5, Card.DIAMONDS)
             ]
         )
         new_stack = s.pop_from_bottom(first=2)
         self.assertEqual(s.length, 1)
-        self.assertEqual(new_stack.contents, [Card(1, "hearts"), Card(3, "spades")])
+        self.assertEqual(new_stack.contents, [Card(1, Card.HEARTS), Card(3, Card.SPADES)])
 
 
 

@@ -13,7 +13,7 @@ class TestDeck(unittest.TestCase):
         deck = Deck()
         c = collections.Counter([card.suit for card in deck.contents])
 
-        for suit in ["hearts", "spades", "diamonds", "clubs"]:
+        for suit in [Card.HEARTS, Card.SPADES, Card.DIAMONDS, Card.CLUBS]:
             self.assertEqual(c[suit], 13)
 
 
@@ -29,7 +29,7 @@ class TestDeck(unittest.TestCase):
         """ Checks that the first three cards are no longer in original order. Could rarely false-negative. """
         deck = Deck()
         deck.shuffle()
-        self.assertNotEqual(deck.contents[:3], [Card(1, "hearts"), Card(2, "hearts"), Card(3, "hearts")])
+        self.assertNotEqual(deck.contents[:3], [Card(1, Card.HEARTS), Card(2, Card.HEARTS), Card(3, Card.HEARTS)])
 
 
     def test_pre_deal(self):
