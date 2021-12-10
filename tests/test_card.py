@@ -28,6 +28,21 @@ class TestCard(unittest.TestCase):
         card.hide()
         self.assertFalse(card.visible)
 
+    
+    def test_card_string_with_face_value(self):
+        card = Card(value=1, suit="hearts", _visible=True)
+        self.assertEqual(card.__str__(), "< ace of hearts >")
+
+    
+    def test_card_string_without_face_value(self):
+        card = Card(value=3, suit="spades", _visible=True)
+        self.assertEqual(card.__str__(), "< 3 of spades >")
+
+    
+    def test_card_string_without_visible(self):
+        card = Card(value=3, suit="spades")
+        self.assertEqual(card.__str__(), "< ?????????? >")
+
 
 
 if __name__ == "__main__":
