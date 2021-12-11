@@ -3,7 +3,7 @@ from typing import List
 from src.stack import Stack
 
 
-class AceRow(Stack):
+class Foundation(Stack):
     
     def __init__(self, suit="") -> None:
         super().__init__()
@@ -25,8 +25,8 @@ class Board:
     SEP =           " | "
 
     def __init__(self) -> None:
-        # Four AceRows; suits shouldn't be predefined, will be decided as player moves their aces.
-        self.foundations: List[AceRow] = [AceRow() for _ in range(4)]
+        # Four Foundations; suits shouldn't be predefined, will be decided as player moves their aces.
+        self.foundations: List[Foundation] = [Foundation() for _ in range(4)]
         self.tableau: List[Stack] = [Stack() for _ in range(7)]
         self.stock: Stack = Stack()
         self.waste: Stack = Stack()
