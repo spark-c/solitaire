@@ -37,3 +37,38 @@ class Board:
             tableau.contents[-1].reveal()
         # everything else goes to the stock
         self.stock.add_cards(deck.contents)
+
+    
+    def draw(self) -> None:
+        pass
+    
+        """
+        draw0
+            stock
+            tab0
+        draw1
+            waste
+            tab1
+        draw2
+            tab2
+        draw3
+            tab3
+            found0
+        draw4
+            tab4
+            found1
+        draw5
+            tab5
+            found2
+        draw6
+            tab6
+            found3
+        """
+
+        """
+        < ?? > | < SS > |
+        < ?? > | < SS > |        | < SS > | < SS > | < SS > | < SS > |
+        < ?? > | < SS > |
+
+        < SS > | < SS > | < SS > | < SS > | < SS > | < SS > | < SS > |
+        """
