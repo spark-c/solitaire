@@ -36,9 +36,9 @@ class Board:
         return max([len(tab) for tab in self.tableau])
 
 
-    def deal(self, deck) -> None:
+    def deal(self, deck, shuffle=True) -> None:
         # populate the tableau columns w/facedown cards
-        for index, stack in enumerate(deck.pre_deal()):
+        for index, stack in enumerate(deck.pre_deal(shuffle=shuffle)):
             self.tableau[index].add_cards(stack.contents)
         # deal the final card to each column and reveal its face
         for tableau in self.tableau:
