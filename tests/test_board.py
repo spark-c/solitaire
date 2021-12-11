@@ -19,7 +19,7 @@ class TestBoard(unittest.TestCase):
         d = Deck()
         b.deal(d)
 
-        self.assertEqual(b._len_max_tableau, 7)
+        self.assertEqual(b.len_max_tableau, 7)
 
     
     def test_deal_correctly(self):
