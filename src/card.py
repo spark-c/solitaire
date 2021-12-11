@@ -49,3 +49,19 @@ class Card:
 
     def hide(self) -> None:
         self._visible = False
+
+
+@dataclass
+class MsgCard(Card):
+    content: str = ""
+    value: int = 0
+    suit: str = Card.HEARTS
+    _visible: bool = True
+
+
+    def __str__(self):
+        return self.content
+
+    
+    def __repr__(self):
+        return str(self)
