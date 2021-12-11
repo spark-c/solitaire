@@ -6,7 +6,15 @@ from src.deck import Deck
 
 class TestRenderer(unittest.TestCase):
 
-    def test_renderer(self):
+    def test_draw_header(self):
+        pass
+
+
+    def test_draw_tableau(self):
+        pass
+
+
+    def test_draw(self):
         pass
 
 
