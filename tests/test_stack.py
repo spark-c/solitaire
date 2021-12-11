@@ -59,6 +59,72 @@ class TestStack(unittest.TestCase):
         self.assertEqual(new_stack.contents, [Card(1, Card.HEARTS), Card(3, Card.SPADES)])
 
 
+    def test_peek_from_top_with_enough_cards(self):
+        s = Stack(
+            input=[
+                Card(1, Card.HEARTS),
+                Card(3, Card.SPADES),
+                Card(5, Card.DIAMONDS),
+                Card(7, Card.CLUBS)                
+            ]
+        )
+        result: List[Card] = s.peek_from_top(last=3)
+
+        self.assertEqual(result, [Card(3, Card.SPADES), Card(5, Card.DIAMONDS), Card(7, Card.CLUBS)])
+
+
+    def test_peek_from_top_with_insufficient_cards(self):
+        s = Stack(
+            input=[
+                Card(1, Card.HEARTS),
+                Card(3, Card.SPADES),             
+            ]
+        )
+        result: List[Card] = s.peek_from_top(last=3)
+
+        self.assertEqual(result, [None, Card(1, Card.HEARTS), Card(3, Card.SPADES)])
+
+
+    def test_peek_from_top_with_no_cards(self):
+        s = Stack(
+        )
+        result: List[Card] = s.peek_from_top(last=3)
+
+        self.assertEqual(result, [None, None, None])
+
+
+    def test_peek_from_bottom_with_enough_cards(self):
+        s = Stack(
+            input=[
+                Card(1, Card.HEARTS),
+                Card(3, Card.SPADES),
+                Card(5, Card.DIAMONDS),
+                Card(7, Card.CLUBS)                
+            ]
+        )
+        result: List[Card] = s.peek_from_bottom(first=3)
+
+        self.assertEqual(result, [Card(1, Card.HEARTS), Card(3, Card.SPADES), Card(5, Card.DIAMONDS)])
+
+
+    def test_peek_from_bottom_with_insufficient_cards(self):
+        s = Stack(
+            input=[
+                Card(1, Card.HEARTS),
+                Card(3, Card.SPADES),             
+            ]
+        )
+        result: List[Card] = s.peek_from_bottom(first=3)
+
+        self.assertEqual(result, [Card(1, Card.HEARTS), Card(3, Card.SPADES), None])
+
+    
+    def test_peek_from_bottom_with_no_cards(self):
+        s = Stack()
+        result: List[Card] = s.peek_from_bottom(first=3)
+
+        self.assertEqual(result, [None, None, None])
+
 
 if __name__ == "__main__":
     unittest.main()

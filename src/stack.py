@@ -66,13 +66,37 @@ class Stack:
         return Stack(input=returnable)
 
 
-    def peek_from_top(self, last=1):
-        """ Returns the topmost card(s) from the Stack """
-        index: int = 0 - last
-        return self.contents[index]
+    def peek_from_top(self, last=1) -> List[Card]:
+        """ Returns the topmost card(s) from the Stack. Returns None where there is no card available. """
+        stop_index: int = 0 - last
+        returnable: List[Card|None] = list()
+        i: int = -1
+        while i >= stop_index:
+            try:
+                returnable.insert(0, self.contents[i])
+            except:
+                returnable.insert(0, None)
+            i -= 1
+            
+            if -100 > i > 100:
+                raise Exception("Infinite while loop in Stack.peek_from_top()")
+
+        return returnable
 
 
-    def peek_from_bottom(self, first=1):
-        """ Returns the buried-most card(s) from the Stack. Not useful in standard Solitaire rules. """
-        index: int = 0 + first
-        return self.contents[index]
+    def peek_from_bottom(self, first=1) -> List[Card]:
+        """ Returns the buried-most card(s) from the Stack. Returns None where there is no card available. """
+        stop_index: int = 0 + first
+        returnable: List[Card|None] = list()
+        i: int = 0
+        while i < stop_index:
+            try:
+                returnable.append(self.contents[i])
+            except:
+                returnable.append(None)
+            i += 1
+            
+            if -100 > i > 100:
+                raise Exception("Infinite while loop in Stack.peek_from_top()")
+
+        return returnable
