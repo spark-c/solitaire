@@ -24,18 +24,18 @@ class Renderer:
             [
                 stock[0],
                 waste[0],
-                board.SPACE,
-                board.SPACE,
-                board.SPACE,
-                board.SPACE,
-                board.SPACE
+                None,
+                None,
+                None,
+                None,
+                None
             ],
 
             # stock1, waste1, 1spaces, 4found
             [
                 stock[1],
                 waste[1],
-                board.SPACE,
+                None,
                 foundations[0],
                 foundations[1],
                 foundations[2],
@@ -46,15 +46,15 @@ class Renderer:
             [
                 stock[2],
                 waste[2],
-                board.SPACE,
-                board.SPACE,
-                board.SPACE,
-                board.SPACE,
-                board.SPACE
+                None,
+                None,
+                None,
+                None,
+                None
             ],
 
             # 7spaces
-            [board.SPACE for _ in range(7)]
+            [None for _ in range(7)]
         ]
 
         return header
