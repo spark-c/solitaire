@@ -27,6 +27,11 @@ class Board:
         self.waste: Stack = Stack()
 
 
+    @property
+    def _len_max_tableau(self) -> int:
+        return max([len(tab) for tab in self.tableau])
+
+
     def deal(self, deck) -> None:
         # populate the tableau columns w/facedown cards
         for index, stack in enumerate(deck.pre_deal()):
@@ -40,8 +45,10 @@ class Board:
 
     
     def draw(self) -> None:
+        def draw_header() -> None:
+            pass
         pass
-    
+
         """
         draw0
             stock
@@ -63,6 +70,15 @@ class Board:
         draw6
             tab6
             found3
+        """
+
+        """
+        1. Find longest tableau
+        2. Grid should be 7 wide x len(tableau) + 4
+        Row0: stock0 waste0 5spaces
+        Row1: stock1 waste1 1spaces found0 found1 found2 found3
+        Row2: stock2 waste2 5spaces
+        Row3: 7spaces
         """
 
         """

@@ -14,6 +14,14 @@ class TestBoard(unittest.TestCase):
         self.assertIsInstance(b.waste, Stack)
 
     
+    def test_len_max_tableau(self):
+        b = Board()
+        d = Deck()
+        b.deal(d)
+
+        self.assertEqual(b._len_max_tableau, 7)
+
+    
     def test_deal_correctly(self):
         deck = Deck()
         board = Board()
