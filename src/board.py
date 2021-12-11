@@ -23,6 +23,7 @@ class Board:
     CARD_WIDTH =    6 # "< ?? >"
     SPACE =         " " * CARD_WIDTH
     SEP =           " | "
+    EMPTY_ACE =     "[Ace] "
 
     def __init__(self) -> None:
         # Four Foundations; suits shouldn't be predefined, will be decided as player moves their aces.

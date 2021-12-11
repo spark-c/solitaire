@@ -15,7 +15,7 @@ class Renderer:
         for f in board.foundations:
             found_card: Card|None = f.peek_from_top()[0]
             if found_card is None:
-                foundations.append(MsgCard(content="[Ace] "))
+                foundations.append(MsgCard(content=board.EMPTY_ACE))
             else:
                 foundations.append(found_card)
 
