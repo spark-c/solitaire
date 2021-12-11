@@ -17,6 +17,10 @@ class Stack:
             self.contents: list = input
 
 
+    def __len__(self) -> int:
+        return len(self.contents)
+
+
     @property
     def length(self) -> int:
         return len(self.contents)
