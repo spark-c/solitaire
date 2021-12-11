@@ -18,6 +18,10 @@ class AceRow(Stack):
 
 
 class Board:
+        
+    CARD_WIDTH =    6 # "< ?? >"
+    SPACE =         " " * CARD_WIDTH
+    SEP =           " | "
 
     def __init__(self) -> None:
         # Four AceRows; suits shouldn't be predefined, will be decided as player moves their aces.
