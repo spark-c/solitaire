@@ -6,6 +6,7 @@ from src.stack import Stack
 class AceRow(Stack):
     
     def __init__(self, suit="") -> None:
+        super().__init__()
         self.suit: str = suit
 
 
