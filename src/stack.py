@@ -3,6 +3,10 @@ from src.card import Card
 
 
 class Stack:
+    """
+    Used to give more semantic control over what are essentially lists of Cards.
+    The Cards themselves are accessible via stack.contents
+    """
 
     def __init__(self, input=None) -> None:
         # default behavior
@@ -49,7 +53,8 @@ class Stack:
         self.contents = bottom + top
 
 
-    # TODO: Figure out how to add return type "Stack" without getting NameErrors
+    # TODO: Figure out how to add return type "Stack" without getting NameErrors.
+    #       Maybe there is a dunder method like __add__() that can help with this.
     def pop_from_top(self, last=1):
         """ Pops and returns the topmost card(s) from the Stack """
         returnable: List[Card] = list()
@@ -67,7 +72,7 @@ class Stack:
 
 
     def peek_from_top(self, last=1) -> List[Card]:
-        """ Returns the topmost card(s) from the Stack. Returns None where there is no card available. """
+        """ Returns copies of the topmost card(s) from the Stack. Places None where there is no card available. """
         stop_index: int = 0 - last
         returnable: List[Card|None] = list()
         i: int = -1
@@ -85,7 +90,7 @@ class Stack:
 
 
     def peek_from_bottom(self, first=1) -> List[Card]:
-        """ Returns the buried-most card(s) from the Stack. Returns None where there is no card available. """
+        """ Returns copies of the buried-most card(s) from the Stack. Places None where there is no card available. """
         stop_index: int = 0 + first
         returnable: List[Card|None] = list()
         i: int = 0
@@ -97,6 +102,6 @@ class Stack:
             i += 1
             
             if -100 > i > 100:
-                raise Exception("Infinite while loop in Stack.peek_from_top()")
+                raise Exception("Infinite while loop in Stack.peek_from_bottom()")
 
         return returnable

@@ -53,6 +53,7 @@ class Card:
 
 @dataclass
 class MsgCard(Card):
+    """ Used to display short messages in place of Cards on the game board. """
     content: str = ""
     value: int = 0
     suit: str = Card.HEARTS

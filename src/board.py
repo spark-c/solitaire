@@ -35,10 +35,12 @@ class Board:
 
     @property
     def len_max_tableau(self) -> int:
+        """ For use in determining how many rows are needed to draw the board. """
         return max([len(tab) for tab in self.tableau])
 
 
     def deal(self, deck, shuffle=True) -> None:
+        """ Takes a deck, pre_deal()s it, and places the card Stacks where they belong on the board. """
         # populate the tableau columns w/facedown cards
         for index, stack in enumerate(deck.pre_deal(shuffle=shuffle)):
             self.tableau[index].add_cards(stack.contents)

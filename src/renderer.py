@@ -8,7 +8,16 @@ class Renderer:
         pass
 
 
-    def _assemble_header(self, board) -> None:
+    def _assemble_header(self, board) -> List[List[Card|None]]:
+        """
+        Pulls in all cards from the board that will need to be drawn,
+        and arranges them according to the structure of the header.
+
+        Returns List[List[Card|None]].
+        Each List[Card|None] represents one row of text in the console.
+        None indicates no card in that spot.
+        """
+        
         stock: List[Card|None] = board.stock.peek_from_top(last=3)
         waste: List[Card|None] = board.waste.peek_from_top(last=3)
         foundations: List[Card|None] = list()
@@ -19,7 +28,7 @@ class Renderer:
             else:
                 foundations.append(found_card)
 
-        header: List[List[Card|str]] = [
+        header: List[List[Card|None]] = [
             # stock0, waste0, 5spaces
             [
                 stock[0],
@@ -60,11 +69,21 @@ class Renderer:
         return header
 
 
-    def _assemble_tableau(self, board) -> None:
+    def _assemble_tableau(self, board) -> List[List[Card|None]]:
+        """
+        Pulls in all cards from the board that will need to be drawn,
+        and arranges them according to the structure of the tableau.
+
+        Returns List[List[Card|None]].
+        Each List[Card|None] represents one row of text in the console.
+        None indicates no card in that spot.
+        """
         pass
 
 
     def _draw_header(self, board) -> None:
+        """ Receives cards and their placement in the header, and translates that into ASCII text. """
+
         header = self._assemble_header(board)
         for row in header:
             for card in row:
@@ -77,47 +96,22 @@ class Renderer:
 
 
     def _draw_tableau(self) -> None:
+        """ Receives cards and their placement in the tableau, and translates that into ASCII text. """
         pass
 
 
     def draw(self, board) -> None:
-        header: List[List[Card|None]] = self._assemble_header()
-        tableau: List[List[Card|None]] = self._assemble_tableau()
+        """ One method to call them all, and to the console draw them. """
+
+        header: List[List[Card|None]] = self._assemble_header(board)
+        tableau: List[List[Card|None]] = self._assemble_tableau(board)
 
         self._draw_header(header)
         self._draw_tableau(tableau)
 
-
-        """
-        draw0
-            stock
-            tab0
-        draw1
-            waste
-            tab1
-        draw2
-            tab2
-        draw3
-            tab3
-            found0
-        draw4
-            tab4
-            found1
-        draw5
-            tab5
-            found2
-        draw6
-            tab6
-            found3
-        """
-
         """
         1. Find longest tableau
         2. Grid should be 7 wide x len(tableau) + 4
-        Row0: stock0 waste0 5spaces
-        Row1: stock1 waste1 1spaces found0 found1 found2 found3
-        Row2: stock2 waste2 5spaces
-        Row3: 7spaces
         """
 
         """
