@@ -40,7 +40,15 @@ class TestAssembleTableau(unittest.TestCase):
         self.tableau = r._assemble_tableau(b)
 
 
-    def test_assemble_tableau(self):
+    def test_contents_are_correct_type(self):
+        pass
+
+    
+    def test_correct_number_rows(self):
+        pass
+
+
+    def test_correct_number_columns(self):
         pass
 
 

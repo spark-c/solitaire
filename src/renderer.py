@@ -63,6 +63,7 @@ class Renderer:
             ],
 
             # 7spaces
+            # TODO: Remove this. To be replaced with something in draw() method.
             [None for _ in range(7)]
         ]
 
@@ -78,7 +79,18 @@ class Renderer:
         Each List[Card|None] represents one row of text in the console.
         None indicates no card in that spot.
         """
-        pass
+        tableau: List[List[Card|None]] = list()
+        # creating seven columns
+        for _ in range(7):
+            tableau.append(list())
+
+        for i, column in enumerate(tableau):
+            column.extend(board.tableau[i])
+            while len(column) < board.len_max_tableau:
+                column.append(None)
+
+        return tableau
+
 
 
     def _draw_header(self, board) -> None:
@@ -86,6 +98,7 @@ class Renderer:
 
         header = self._assemble_header(board)
         for row in header:
+            print(board.SEP, end="")
             for card in row:
                 if card is not None:
                     print(str(card), end=board.SEP)
@@ -95,29 +108,32 @@ class Renderer:
             print("\n", end="")
 
 
-    def _draw_tableau(self) -> None:
+    def _draw_tableau(self, board) -> None:
         """ Receives cards and their placement in the tableau, and translates that into ASCII text. """
-        pass
+        tableau = self._assemble_tableau(board)
+        for row_i in range(board.len_max_tableau):
+            print(board.SEP, end="")
+            for column in tableau:
+                card = column[row_i]
+                if card is not None:
+                    print(str(card), end=board.SEP)
+                else:
+                    print(board.SPACE, end=board.SEP)
+            
+            print("\n", end="")
+        
+    
+    def _draw_section_separator(self, board):
+        print(board.SEP, end="")
+        for _ in range(7):
+            print(board.CARD_WIDTH * "-", end="")
+            print(board.SEP, end="")
+        print("\n", end="")
 
 
     def draw(self, board) -> None:
         """ One method to call them all, and to the console draw them. """
 
-        header: List[List[Card|None]] = self._assemble_header(board)
-        tableau: List[List[Card|None]] = self._assemble_tableau(board)
-
-        self._draw_header(header)
-        self._draw_tableau(tableau)
-
-        """
-        1. Find longest tableau
-        2. Grid should be 7 wide x len(tableau) + 4
-        """
-
-        """
-        < ?? > | < SS > |
-        < ?? > | < SS > |        | < SS > | < SS > | < SS > | < SS > |
-        < ?? > | < SS > |
-
-        < SS > | < SS > | < SS > | < SS > | < SS > | < SS > | < SS > |
-        """
+        self._draw_header(board)
+        self._draw_section_separator(board)
+        self._draw_tableau(board)
