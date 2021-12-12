@@ -32,5 +32,13 @@ class TestBoard(unittest.TestCase):
         self.assertEqual(board.stock.length, 24)
 
 
+    def test_last_card_revealed(self):
+        deck = Deck()
+        board = Board()
+        board.deal(deck)
+
+        self.assertTrue(board.tableau[-1][-1]._visible)
+
+
 if __name__ == "__main__":
     unittest.main()
