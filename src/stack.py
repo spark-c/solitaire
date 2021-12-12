@@ -29,6 +29,10 @@ class Stack:
     def length(self) -> int:
         return len(self.contents)
 
+
+    def __getitem__(self, n):
+        return self.contents[n]
+
     
     def add_cards(self, input:List[Card], *, to:str="top") -> None:
         """
