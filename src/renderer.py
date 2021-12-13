@@ -120,14 +120,20 @@ class Renderer:
                     print(str(card), end=board.SEP)
                 else:
                     print(board.SPACE, end=board.SEP)
-            
+        
             print("\n", end="")
+
+        self._draw_section_separator(board, char=" ")
+
+        for i, column in enumerate(tableau): # column numbers for controls reference
+            print(board.SEP, f"   {i}   ", sep="", end="")
+        print(board.SEP)
         
     
-    def _draw_section_separator(self, board):
+    def _draw_section_separator(self, board, char="-"):
         print(board.SEP, end="")
         for _ in range(7):
-            print(board.CARD_WIDTH * "-", end="")
+            print(board.CARD_WIDTH * char, end="")
             print(board.SEP, end="")
         print("\n", end="")
 
