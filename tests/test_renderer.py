@@ -37,19 +37,23 @@ class TestAssembleTableau(unittest.TestCase):
         r = Renderer()
 
         b.deal(d, shuffle=False)
+        self.board = b
         self.tableau = r._assemble_tableau(b)
 
 
     def test_contents_are_correct_type(self):
-        pass
+        for column in self.tableau:
+            for item in column:
+                self.assertIsInstance(item, Card|None)
 
     
     def test_correct_number_rows(self):
-        pass
+        for column in self.tableau:
+            self.assertEqual(len(column), self.board.len_max_tableau)
 
 
     def test_correct_number_columns(self):
-        pass
+        self.assertEqual(len(self.tableau), 7)
 
 
 class TestRenderer(unittest.TestCase):
