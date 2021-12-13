@@ -35,10 +35,10 @@ class Renderer:
                 stock[0],
                 waste[0],
                 None,
-                None,
-                None,
-                None,
-                None
+                MsgCard(content="  8   "),
+                MsgCard(content="  9   "),
+                MsgCard(content="  0   "),
+                MsgCard(content="  -   ")
             ],
 
             # stock1, waste1, 1spaces, 4found
@@ -132,9 +132,25 @@ class Renderer:
         print("\n", end="")
 
 
+    def _draw_controls(self, board) -> None:
+        print(
+            "Select waste with w",
+            "Select tableau with 1234567",
+            "Select foundations with 890-",
+            sep="\t"
+        )
+        print(
+            "Flip stock: s",
+            "Move card with 'src dest [amt=1]'",
+            sep="\t"
+        )
+
+
     def draw(self, board) -> None:
         """ One method to call them all, and to the console draw them. """
         os.system("cls||clear") # clears terminal
         self._draw_header(board)
         self._draw_section_separator(board)
         self._draw_tableau(board)
+        self._draw_section_separator(board)
+        self._draw_controls(board)
