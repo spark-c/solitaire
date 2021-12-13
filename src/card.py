@@ -38,9 +38,9 @@ class Card:
     
     def __str__(self):
         if self._visible:
-            return f"< {self.face_value}{self.suit} >"
+            return f"< {self.face_value} {self.suit} >" if self.face_value != "10" else f"< {self.face_value}{self.suit} >"
         else:
-            return "< ?? >"
+            return "< ??? >"
 
 
     def reveal(self) -> None:

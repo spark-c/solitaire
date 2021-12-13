@@ -35,10 +35,10 @@ class Renderer:
                 stock[0],
                 waste[0],
                 None,
-                MsgCard(content="  8   "),
-                MsgCard(content="  9   "),
-                MsgCard(content="  0   "),
-                MsgCard(content="  -   ")
+                MsgCard(content="   8   "),
+                MsgCard(content="   9   "),
+                MsgCard(content="   0   "),
+                MsgCard(content="   -   ")
             ],
 
             # stock1, waste1, 1spaces, 4found
