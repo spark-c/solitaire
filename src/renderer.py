@@ -155,6 +155,7 @@ class Renderer:
     def draw(self, board) -> None:
         """ One method to call them all, and to the console draw them. """
         os.system("cls||clear") # clears terminal
+        self._draw_section_separator(board)
         self._draw_header(board)
         self._draw_section_separator(board)
         self._draw_tableau(board)
