@@ -30,7 +30,7 @@ class Stack:
         return len(self.contents)
 
 
-    def __getitem__(self, n):
+    def __getitem__(self, n) -> Card:
         return self.contents[n]
 
     
@@ -61,17 +61,23 @@ class Stack:
     #       Maybe there is a dunder method like __add__() that can help with this.
     def pop_from_top(self, last=1):
         """ Pops and returns the topmost card(s) from the Stack """
-        returnable: List[Card] = list()
+        returnable: List[Card|None] = list()
         for i in range(last):
-            returnable.insert(0, self.contents.pop(-1))
+            if len(self.contents) > 0:
+                returnable.insert(0, self.contents.pop(-1))
+            else:
+                returnable.insert(0, None)
         return Stack(input=returnable)
 
 
     def pop_from_bottom(self, first=1):
         """ Pops and returns the buried-most card(s) from the Stack. Not useful in standard Solitaire rules. """
-        returnable: List[Card] = list()
+        returnable: List[Card|None] = list()
         for i in range(first):
-            returnable.append(self.contents.pop(0))
+            if len(self.contents) > 0:
+                returnable.append(self.contents.pop(0))
+            else:
+                returnable.append(None)
         return Stack(input=returnable)
 
 
