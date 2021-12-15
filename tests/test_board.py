@@ -67,7 +67,27 @@ class TestMoveCards(unittest.TestCase):
 
     
     def test_move_all(self):
-        pass
+        b = Board()
+        b.tableau[0].add_cards([Card(value=11, suit=Card.SPADES, _visible=True)])
+        b.tableau[1].add_cards(
+            [
+                Card(value=10, suit=Card.DIAMONDS, _visible=True),
+                Card(value=9, suit=Card.SPADES, _visible=True),
+                Card(value=8, suit=Card.HEARTS, _visible=True)                
+            ]
+        )
+
+        b.move_cards(b.tableau[1], b.tableau[0], 0)
+
+        self.assertEqual(
+            b.tableau[0].contents,
+            [
+                Card(value=11, suit=Card.SPADES, _visible=True),
+                Card(value=10, suit=Card.DIAMONDS, _visible=True),
+                Card(value=9, suit=Card.SPADES, _visible=True),
+                Card(value=8, suit=Card.HEARTS, _visible=True)                
+            ]
+        )
 
 
 class TestStockAndWaste(unittest.TestCase):
