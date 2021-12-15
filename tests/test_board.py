@@ -2,6 +2,7 @@ import unittest
 from src.board import Board
 from src.stack import Stack
 from src.deck import Deck
+from src.card import Card
 
 
 class TestBoard(unittest.TestCase):
@@ -38,6 +39,35 @@ class TestBoard(unittest.TestCase):
         board.deal(deck)
 
         self.assertTrue(board.tableau[-1][-1]._visible)
+
+    
+class TestMoveCards(unittest.TestCase):
+
+    def test_move(self):
+        b = Board()
+        b.tableau[0].add_cards([Card(value=10, suit=Card.HEARTS, _visible=True)])
+        b.tableau[1].add_cards(
+            [
+                Card(value=10, suit=Card.DIAMONDS, _visible=True),
+                Card(value=9, suit=Card.SPADES, _visible=True),
+                Card(value=8, suit=Card.HEARTS, _visible=True)                
+            ]
+        )
+
+        b.move_cards(b.tableau[1], b.tableau[0], 2)
+
+        self.assertEqual(
+            b.tableau[0].contents,
+            [
+                Card(value=10, suit=Card.HEARTS, _visible=True),
+                Card(value=9, suit=Card.SPADES, _visible=True),
+                Card(value=8, suit=Card.HEARTS, _visible=True) 
+            ]
+        )
+
+    
+    def test_move_all(self):
+        pass
 
 
 class TestStockAndWaste(unittest.TestCase):

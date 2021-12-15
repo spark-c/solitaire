@@ -54,6 +54,14 @@ class Board:
         self.stock.add_cards(deck.contents)
 
 
+    def move_cards(self, source:Stack, destination:Stack, amt:int) -> None:
+        if amt == 0:
+            amt = len(source)
+
+        cards_moving: Stack = source.pop_from_top(amt)
+        destination.add_cards(cards_moving.contents)
+
+
     def flip_stock(self):
         """ Takes up to three cards from stock and flips them into waste """
         flipped_cards: List[Card] = self.stock.pop_from_top(3).contents
