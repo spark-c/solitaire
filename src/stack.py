@@ -11,14 +11,14 @@ class Stack:
     def __init__(self, input=None) -> None:
         # default behavior
         if input is None:
-            self.contents: list = list()
+            self.contents: List[Card] = list()
         # we should be getting a List[Card] as input
         elif type(input) is not list:
             raise TypeError("Argument 'contents' must be type 'list'")
         # input is a list; now we just hope that it contains Cards 
         # TODO: let's find a nice way to futher ensure that ^^^
         else:
-            self.contents: list = input
+            self.contents: List[Card] = input
 
 
     def __len__(self) -> int:
