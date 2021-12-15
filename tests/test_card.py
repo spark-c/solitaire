@@ -41,17 +41,22 @@ class TestCard(unittest.TestCase):
     
     def test_card_string_with_face_value(self):
         card = Card(value=1, suit=Card.HEARTS, _visible=True)
-        self.assertEqual(card.__str__(), f"< A{Card.HEARTS} >")
+        self.assertEqual(card.__str__(), f"< A {Card.HEARTS} >")
 
     
     def test_card_string_without_face_value(self):
         card = Card(value=3, suit=Card.SPADES, _visible=True)
-        self.assertEqual(card.__str__(), f"< 3{Card.SPADES} >")
+        self.assertEqual(card.__str__(), f"< 3 {Card.SPADES} >")
+
+
+    def test_card_string_for_10(self):
+        card = Card(value=10, suit=Card.SPADES, _visible=True)
+        self.assertEqual(card.__str__(), f"< 10{Card.SPADES} >")
 
     
     def test_card_string_without_visible(self):
         card = Card(value=3, suit=Card.SPADES)
-        self.assertEqual(card.__str__(), "< ?? >")
+        self.assertEqual(card.__str__(), "< ??? >")
 
 
 
