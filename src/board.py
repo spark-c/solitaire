@@ -1,6 +1,8 @@
 from dataclasses import dataclass
+from contextlib import suppress
 from typing import List
 from src.stack import Stack
+from src.card import Card
 
 
 class Foundation(Stack):
@@ -50,3 +52,28 @@ class Board:
             tableau.contents[-1].reveal()
         # everything else goes to the stock
         self.stock.add_cards(deck.contents)
+
+
+    def flip_stock(self):
+        """ Takes up to three cards from stock and flips them into waste """
+        flipped_cards: List[Card] = self.stock.pop_from_top(3).contents
+        for card in flipped_cards:
+            with suppress(AttributeError): # ignoring errors from 'NoneType.reveal()'
+                card.reveal()
+        flipped_cards.reverse()
+        self.waste.add_cards(flipped_cards)
+
+    def cycle_stock(self):
+        """ Moves all waste cards and flips them into stock """
+        # TODO: test this method
+        for card in self.board.waste[-1:-4]:
+            if card is None:
+                self.board.waste.remove(card)
+        self.board.waste.contents.reverse()
+        self.board.stock = self.board.waste
+        self.board.waste = Stack()
+
+
+    def stock_next(self):
+        """ Plays the next stock move, flip or cycle, depending on how many cards in stock """
+        pass
