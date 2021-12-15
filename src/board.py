@@ -74,12 +74,12 @@ class Board:
     def cycle_stock(self):
         """ Moves all waste cards and flips them into stock """
         # TODO: test this method
-        for card in self.board.waste[-1:-4]:
+        for card in self.waste.contents[-1:-4]:
             if card is None:
-                self.board.waste.remove(card)
-        self.board.waste.contents.reverse()
-        self.board.stock = self.board.waste
-        self.board.waste = Stack()
+                self.waste.contents.remove(card)
+        self.waste.contents.reverse()
+        self.stock = self.waste
+        self.waste = Stack()
 
 
     def stock_next(self):
