@@ -77,9 +77,7 @@ class Board:
         for card in self.waste.contents[-1:-4]:
             if card is None:
                 self.waste.contents.remove(card)
-        self.waste.contents.reverse()
-        self.stock = self.waste
-        self.waste = Stack()
+        self.move_cards(self.waste, self.stock, 0)
 
 
     def stock_next(self):

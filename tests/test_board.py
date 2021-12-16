@@ -115,19 +115,34 @@ class TestStockAndWaste(unittest.TestCase):
 
 
     def test_cycle_stock_with_no_none(self):
-        """ After stock emptied with a full three cards into waste """
-        # TODO: Complete this test after implememnting move() abstraction
-        
-        # deck = Deck()
-        # board = Board()
-        # board.deal(deck)
+        """ After stock emptied with a full three cards into waste """        
+        deck = Deck()
+        board = Board()
+        board.deal(deck)
+        top_card = board.stock[-1]
+        board.move_cards(board.stock, board.waste, 0)
 
-        # self.waste.add_cards(self.stock.pop_from_top(len(self.stock)))
+        board.cycle_stock()
+
+        self.assertEqual(len(board.waste), 0)
+        self.assertEqual(len(board.stock), 24)
+        self.assertEqual(board.stock[-1], top_card)
 
     
     def test_cycle_stock_with_none_values(self):
         """ After stock only had one or two cards to flip into waste """
-        pass
+        deck = Deck()
+        board = Board()
+        board.deal(deck)
+        bottom_card = board.stock[0]
+        board.stock.pop_from_top(2)
+        board.move_cards(board.stock, board.waste, 0)
+
+        board.cycle_stock()
+
+        self.assertEqual(len(board.waste), 0)
+        self.assertEqual(len(board.stock), 22)
+        self.assertEqual(board.stock[0], bottom_card)
         
 
 
