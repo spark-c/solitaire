@@ -1,12 +1,18 @@
 from src.deck import Deck
 from src.board import Board
 from src.renderer import Renderer
+from src.userinterface import UserInterface
 
 
-d = Deck()
-b = Board()
-r = Renderer()
+deck = Deck()
+board = Board()
+renderer = Renderer(board)
+ui = UserInterface(board)
 
 
-b.deal(d, shuffle=False)
-r._draw_header(b)
+board.deal(deck, shuffle=True)
+renderer.draw()
+
+while True:
+    ui.main_loop()
+    renderer.draw()
