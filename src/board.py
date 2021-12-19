@@ -27,6 +27,8 @@ class Board:
     SEP =           " | "
     EMPTY_ACE =     " [Ace] "
 
+    #TODO: connect UserInterface error messages to self.err on board to be rendered with the game board
+
     def __init__(self) -> None:
         # Four Foundations; suits shouldn't be predefined, will be decided as player moves their aces.
         self.foundations: List[Foundation] = [Foundation() for _ in range(4)]
