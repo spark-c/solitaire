@@ -5,11 +5,11 @@ from src.card import Card, MsgCard
 
 class Renderer:
 
-    def __init__(self):
-        pass
+    def __init__(self, board):
+        self.board = board
 
 
-    def _assemble_header(self, board) -> List[List[Card|None]]:
+    def _assemble_header(self) -> List[List[Card|None]]:
         """
         Pulls in all cards from the board that will need to be drawn,
         and arranges them according to the structure of the header.
@@ -18,7 +18,8 @@ class Renderer:
         Each List[Card|None] represents one row of text in the console.
         None indicates no card in that spot.
         """
-        
+        board = self.board
+
         stock: List[Card|None] = board.stock.peek_from_top(last=3)
         waste: List[Card|None] = board.waste.peek_from_top(last=3)
         foundations: List[Card|None] = list()
@@ -71,7 +72,7 @@ class Renderer:
         return header
 
 
-    def _assemble_tableau(self, board) -> List[List[Card|None]]:
+    def _assemble_tableau(self) -> List[List[Card|None]]:
         """
         Pulls in all cards from the board that will need to be drawn,
         and arranges them according to the structure of the tableau.
@@ -80,6 +81,7 @@ class Renderer:
         Each List[Card|None] represents one row of text in the console.
         None indicates no card in that spot.
         """
+        board = self.board
         tableau: List[List[Card|None]] = list()
         # creating seven columns
         for _ in range(7):
@@ -94,10 +96,10 @@ class Renderer:
 
 
 
-    def _draw_header(self, board) -> None:
+    def _draw_header(self) -> None:
         """ Receives cards and their placement in the header, and translates that into ASCII text. """
-
-        header = self._assemble_header(board)
+        board = self.board
+        header = self._assemble_header()
         for row in header:
             print(board.SEP, end="")
             for card in row:
@@ -109,9 +111,10 @@ class Renderer:
             print("\n", end="")
 
 
-    def _draw_tableau(self, board) -> None:
+    def _draw_tableau(self) -> None:
         """ Receives cards and their placement in the tableau, and translates that into ASCII text. """
-        tableau = self._assemble_tableau(board)
+        board = self.board
+        tableau = self._assemble_tableau()
         for row_i in range(board.len_max_tableau):
             print(board.SEP, end="")
             for column in tableau:
@@ -123,14 +126,16 @@ class Renderer:
         
             print("\n", end="")
 
-        self._draw_section_separator(board, char=" ")
+        self._draw_section_separator(char=" ")
 
         for i, column in enumerate(tableau): # column numbers for controls reference
             print(board.SEP, f"   {i}   ", sep="", end="")
         print(board.SEP)
         
     
-    def _draw_section_separator(self, board, char="-"):
+    def _draw_section_separator(self, char="-"):
+        board = self.board
+
         print(board.SEP, end="")
         for _ in range(7):
             print(board.CARD_WIDTH * char, end="")
@@ -138,7 +143,9 @@ class Renderer:
         print("\n", end="")
 
 
-    def _draw_controls(self, board) -> None:
+    def _draw_controls(self) -> None:
+        board = self.board
+
         print(
             "Select waste with w",
             "Select tableau with 1234567",
@@ -152,12 +159,14 @@ class Renderer:
         )
 
 
-    def draw(self, board) -> None:
+    def draw(self) -> None:
         """ One method to call them all, and to the console draw them. """
+        board = self.board
+
         os.system("cls||clear") # clears terminal
-        self._draw_section_separator(board)
-        self._draw_header(board)
-        self._draw_section_separator(board)
-        self._draw_tableau(board)
-        self._draw_section_separator(board)
-        self._draw_controls(board)
+        self._draw_section_separator()
+        self._draw_header()
+        self._draw_section_separator()
+        self._draw_tableau()
+        self._draw_section_separator()
+        self._draw_controls()

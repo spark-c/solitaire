@@ -1,4 +1,5 @@
 import unittest
+from types import NoneType
 from src.renderer import Renderer
 from src.board import Board
 from src.deck import Deck
@@ -9,16 +10,16 @@ class TestAssembleHeader(unittest.TestCase):
     def setUp(self):
         d = Deck()
         b = Board()
-        r = Renderer()
+        r = Renderer(b)
 
         b.deal(d, shuffle=False)
-        self.header = r._assemble_header(b)
+        self.header = r._assemble_header()
 
 
     def test_contents_are_correct_type(self):
         for row_i, row in enumerate(self.header):
             for item_i, item in enumerate(row):
-                self.assertIsInstance(item, Card|None, f"Error in row{row_i} col{item_i}")
+                self.assertIsInstance(item, (Card, NoneType), f"Error in row{row_i} col{item_i}")
 
 
     def test_correct_number_rows(self):
@@ -34,17 +35,17 @@ class TestAssembleTableau(unittest.TestCase):
     def setUp(self):
         d = Deck()
         b = Board()
-        r = Renderer()
+        r = Renderer(b)
 
         b.deal(d, shuffle=False)
         self.board = b
-        self.tableau = r._assemble_tableau(b)
+        self.tableau = r._assemble_tableau()
 
 
     def test_contents_are_correct_type(self):
         for column in self.tableau:
             for item in column:
-                self.assertIsInstance(item, Card|None)
+                self.assertIsInstance(item, (Card, NoneType))
 
     
     def test_correct_number_rows(self):
@@ -57,7 +58,7 @@ class TestAssembleTableau(unittest.TestCase):
 
 
 class TestRenderer(unittest.TestCase):
-
+    #TODO: Finish renderer tests
     def test_draw_header(self):
         pass
 
