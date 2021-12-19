@@ -74,7 +74,7 @@ class Board:
     def cycle_stock(self):
         """ Moves all waste cards and flips them into stock """
         # TODO: test this method
-        for card in self.waste.contents[-1:-4]:
+        for card in self.waste.contents:
             if card is None:
                 self.waste.contents.remove(card)
         self.move_cards(self.waste, self.stock, 0)
@@ -82,4 +82,7 @@ class Board:
 
     def stock_next(self):
         """ Plays the next stock move, flip or cycle, depending on how many cards in stock """
-        pass
+        if len(self.stock) > 0:
+            self.flip_stock()
+        else:
+            self.cycle_stock()

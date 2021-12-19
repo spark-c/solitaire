@@ -143,7 +143,32 @@ class TestStockAndWaste(unittest.TestCase):
         self.assertEqual(len(board.waste), 0)
         self.assertEqual(len(board.stock), 22)
         self.assertEqual(board.stock[0], bottom_card)
+
+    
+    def test_stock_next_flips(self):
+        board = Board()
+        board.stock.add_cards([
+            Card(value=11, suit=Card.SPADES, _visible=True),
+            Card(value=10, suit=Card.DIAMONDS, _visible=True),
+            Card(value=9, suit=Card.SPADES, _visible=True),
+        ])
+
+        board.stock_next()
+
+        self.assertEqual(len(board.waste), 3)
+
         
+    def test_stock_next_cycles(self):
+        board = Board()
+        board.waste.add_cards([
+            Card(value=11, suit=Card.SPADES, _visible=True),
+            Card(value=10, suit=Card.DIAMONDS, _visible=True),
+            Card(value=9, suit=Card.SPADES, _visible=True),
+        ])
+
+        board.stock_next()
+        
+        self.assertEqual(len(board.stock), 3)
 
 
 if __name__ == "__main__":
