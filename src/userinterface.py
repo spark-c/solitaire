@@ -7,12 +7,43 @@ from src.board import Board
 @dataclass
 class UserInput:
     """ Represents one piece of input submitted by the user """
+
     raw: str
-    cleaned: str
-    # TODO: maybe remove self.content
-    content: tuple[str, str, int]|None = None # src, dest, amt
-    _is_valid: bool = False
+    # cache for self.clean; unnecessary but makes me feel good
+    _cleaned: str|None = None 
     err: str|None = None
+
+    
+    @property
+    def clean(self) -> str:
+        if self._cleaned:
+            return self._cleaned
+            
+        else:
+            no_specials: List[str] = list(filter(lambda c: c.isalnum(), self.raw))
+            self._cleaned = "".join(no_specials) 
+            return self._cleaned
+
+
+    @property
+    def is_valid(self) -> bool:
+        """ Checks that user input is in a valid format """
+        cmd: str = self.clean
+        if cmd == "help":
+            return True
+
+        if len(cmd) != 3:
+            self.err = f"Too many or not enough arguments! You entered: {input.raw}"
+            return False
+
+        return True
+
+    
+    @property
+    def parsed(self) -> tuple[str, str, int]:
+        """ Parses valid userinput into a tuple(src:str, dest:str, amt:int) """
+        cmd: str = input.cleaned
+        return (cmd[0], cmd[1], int(cmd[2]))
 
         
 class UserInterface:
@@ -44,33 +75,10 @@ class UserInterface:
         else:
             raw_in: str = input()
 
-        cleaning: List[str] = list(filter(lambda c: c.isalnum(), raw_in))
-        cleaned: str = "".join(cleaning)
-        self.current_input = UserInput(raw=raw_in, cleaned=cleaned)
+        self.current_input = UserInput(raw=raw_in)
 
 
-    def _validate(self, input:Optional[UserInput]) -> None:
-        """ Checks that user input is in a valid format """
-        if input is None:
-            return
-
-        cmd: str = input.cleaned
-        if cmd == "help":
-            input._is_valid = True
-            return
-
-        if len(cmd) != 3:
-            input._is_valid = False
-            input.err = f"Too many or not enough arguments! You entered: {input.raw}"
-            return
-
-        input._is_valid = True
-
-
-    def _parse(self) -> tuple[Stack, Stack, int]:
-        """ Parses valid userinput into a tuple(src:Stack, dest:Stack, amt:int) """
-        cmd: str = input.cleaned
-        return (self.KEYMAP[cmd[0]], self.KEYMAP[cmd[1]], int(cmd[2]))
+    
 
 
     def _enact(self, user_input: tuple) -> None:
@@ -81,6 +89,7 @@ class UserInterface:
 
 
     def main_loop(self) -> None:
+        """ This function should run one iteration of gathering -> handling input """
         pass
 
 
