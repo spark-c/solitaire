@@ -1,5 +1,6 @@
 import os
 from typing import List, Any
+from src.config import Config
 from src.card import Card, MsgCard
 
 
@@ -145,15 +146,30 @@ class Renderer:
 
     def _draw_controls(self) -> None:
         board = self.board
+        t_legend: str = "".join([
+            Config.KEYMAP["tableau0"],
+            Config.KEYMAP["tableau1"],
+            Config.KEYMAP["tableau2"],
+            Config.KEYMAP["tableau3"],
+            Config.KEYMAP["tableau4"],
+            Config.KEYMAP["tableau5"],
+            Config.KEYMAP["tableau6"],
+        ])
+        w_legend: str = "".join([
+            Config.KEYMAP["foundations0"],
+            Config.KEYMAP["foundations1"],
+            Config.KEYMAP["foundations2"],
+            Config.KEYMAP["foundations3"],
+        ])
 
         print(
-            "Select waste with w",
-            "Select tableau with 1234567",
-            "Select foundations with 890-",
+            f"Select waste with {Config.KEYMAP['waste']}",
+            f"Select tableau with {t_legend}",
+            f"Select foundations with {w_legend}",
             sep="\t"
         )
         print(
-            "Flip stock: s",
+            f"Flip stock: {Config.KEYMAP['flip_stock']}",
             "Move card with 'src dest [amt=1]'",
             sep="\t"
         )

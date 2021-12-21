@@ -1,5 +1,6 @@
 from dataclasses import dataclass
 from typing import List, Dict, Optional
+from src.config import Config
 from src.stack import Stack
 from src.board import Board
 
@@ -53,18 +54,19 @@ class UserInterface:
         self.board: Board = board
         self.current_input: Optional[UserInput] = None
         self.KEYMAP: Dict[str, Stack] = {
-            "w": self.board.waste,
-            "1": self.board.tableau[0],
-            "2": self.board.tableau[1],
-            "3": self.board.tableau[2],
-            "4": self.board.tableau[3],
-            "5": self.board.tableau[4],
-            "6": self.board.tableau[5],
-            "7": self.board.tableau[6],
-            "8": self.board.foundations[0],
-            "9": self.board.foundations[1],
-            "0": self.board.foundations[2],
-            "-": self.board.foundations[3],
+            # Config.KEYMAP["flip_stock"]: None,
+            Config.KEYMAP["waste"]: self.board.waste,
+            Config.KEYMAP["tableau0"]: self.board.tableau[0],
+            Config.KEYMAP["tableau1"]: self.board.tableau[1],
+            Config.KEYMAP["tableau2"]: self.board.tableau[2],
+            Config.KEYMAP["tableau3"]: self.board.tableau[3],
+            Config.KEYMAP["tableau4"]: self.board.tableau[4],
+            Config.KEYMAP["tableau5"]: self.board.tableau[5],
+            Config.KEYMAP["tableau6"]: self.board.tableau[6],
+            Config.KEYMAP["foundations0"]: self.board.foundations[0],
+            Config.KEYMAP["foundations1"]: self.board.foundations[1],
+            Config.KEYMAP["foundations2"]: self.board.foundations[2],
+            Config.KEYMAP["foundations3"]: self.board.foundations[3],
         }
 
 
@@ -76,9 +78,6 @@ class UserInterface:
             raw_in: str = input()
 
         self.current_input = UserInput(raw=raw_in)
-
-
-    
 
 
     def _enact(self, user_input: tuple) -> None:
