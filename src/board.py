@@ -26,6 +26,7 @@ class Board:
     SPACE =         " " * CARD_WIDTH
     SEP =           " | "
     EMPTY_ACE =     " [Ace] "
+    extra_commands = dict() #TODO: NOT IMPLEMENTED
 
     #TODO: connect UserInterface error messages to self.err on board to be rendered with the game board
 
