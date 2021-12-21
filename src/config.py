@@ -16,4 +16,10 @@ class Config:
             "foundations1": "9",
             "foundations2": "0",
             "foundations3": "-",
+            "help": "help",
         }
+
+    EXTRA_COMMANDS = {
+        "s",
+        "help"
+    }
