@@ -130,7 +130,7 @@ class Renderer:
         self._draw_section_separator(char=" ")
 
         for i, column in enumerate(tableau): # column numbers for controls reference
-            print(board.SEP, f"   {i}   ", sep="", end="")
+            print(board.SEP, f"   {i + 1}   ", sep="", end="")
         print(board.SEP)
         
     
