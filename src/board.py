@@ -57,7 +57,7 @@ class Board:
 
 
     def move_cards(self, source:Stack, destination:Stack, amt:int) -> None:
-        if amt == 0:
+        if amt == -1:
             amt = len(source)
 
         cards_moving: Stack = source.pop_from_top(amt)
@@ -79,7 +79,7 @@ class Board:
         for card in self.waste.contents:
             if card is None:
                 self.waste.contents.remove(card)
-        self.move_cards(self.waste, self.stock, 0)
+        self.move_cards(self.waste, self.stock, -1)
 
 
     def stock_next(self):

@@ -77,7 +77,7 @@ class TestMoveCards(unittest.TestCase):
             ]
         )
 
-        b.move_cards(b.tableau[1], b.tableau[0], 0)
+        b.move_cards(b.tableau[1], b.tableau[0], -1)
 
         self.assertEqual(
             b.tableau[0].contents,
@@ -120,7 +120,7 @@ class TestStockAndWaste(unittest.TestCase):
         board = Board()
         board.deal(deck)
         top_card = board.stock[-1]
-        board.move_cards(board.stock, board.waste, 0)
+        board.move_cards(board.stock, board.waste, -1)
 
         board.cycle_stock()
 
@@ -136,7 +136,7 @@ class TestStockAndWaste(unittest.TestCase):
         board.deal(deck)
         bottom_card = board.stock[0]
         board.stock.pop_from_top(2)
-        board.move_cards(board.stock, board.waste, 0)
+        board.move_cards(board.stock, board.waste, -1)
 
         board.cycle_stock()
 
