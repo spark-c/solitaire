@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from typing import List, Dict, Optional
+from typing import List, Dict, Optional, TypedDict
 from src.config import Config
 from src.stack import Stack
 from src.board import Board
@@ -11,7 +11,10 @@ class UserInput:
 
     raw: str
     # cache for self.clean; unnecessary but makes me feel good
-    _cleaned: str|None = None 
+    _cleaned: str|None = None
+    # extra_command flag indicates that the cmd is not the typical format of src,dest,amt. e.g. "s(flip stock)" or "help"
+    extra_command: bool = False
+    # self.board.current_input.err should be checked by the renderer in each render, and the msg displayed
     err: str|None = None
 
     
@@ -22,7 +25,7 @@ class UserInput:
             
         else:
             no_specials: List[str] = list(filter(lambda c: c.isalnum(), self.raw))
-            self._cleaned = "".join(no_specials) 
+            self._cleaned = "".join(no_specials).lower()
             return self._cleaned
 
 
@@ -30,21 +33,42 @@ class UserInput:
     def is_valid(self) -> bool:
         """ Checks that user input is in a valid format """
         cmd: str = self.clean
-        if cmd == "help":
+        if cmd in Config.EXTRA_COMMANDS:
+            self.extra_command = True
             return True
 
+        if cmd[0] == cmd[1]:
+            self.err = f"Source and Destination can't be the same. You entered: {self.raw}"
+            return False
+
         if len(cmd) != 3:
-            self.err = f"Too many or not enough arguments! You entered: {input.raw}"
+            self.err = f"Too many or not enough arguments! You entered: {self.raw}"
             return False
 
         return True
 
-    
+
+    class ParsedCmd(TypedDict):
+        """ Contains the cleaned user input, and its parsed pieces """
+        command: str|None
+        src: str
+        dest: str
+        amt: int
+
+
     @property
-    def parsed(self) -> tuple[str, str, int]:
-        """ Parses valid userinput into a tuple(src:str, dest:str, amt:int) """
-        cmd: str = input.cleaned
-        return (cmd[0], cmd[1], int(cmd[2]))
+    def parsed(self) -> ParsedCmd:
+        """ Parses valid userinput into a dict(src:str, dest:str, amt:int) """
+        if not self.is_valid:
+            raise Exception("Invalid Input! TODO: replace this exception")
+
+        cmd: str = self.clean
+        return {
+            "command": self.clean,
+            "src": cmd[0] if not self.extra_command else "",
+            "dest": cmd[1] if not self.extra_command else "",
+            "amt": int(cmd[2]) if not self.extra_command else 0
+        }
 
         
 class UserInterface:
@@ -54,7 +78,6 @@ class UserInterface:
         self.board: Board = board
         self.current_input: Optional[UserInput] = None
         self.KEYMAP: Dict[str, Stack] = {
-            # Config.KEYMAP["flip_stock"]: None,
             Config.KEYMAP["waste"]: self.board.waste,
             Config.KEYMAP["tableau0"]: self.board.tableau[0],
             Config.KEYMAP["tableau1"]: self.board.tableau[1],
@@ -80,11 +103,21 @@ class UserInterface:
         self.current_input = UserInput(raw=raw_in)
 
 
-    def _enact(self, user_input: tuple) -> None:
-        """ Receives a valid command tuple and """
-        # try:
-            # self.board.move_cards()
-        pass
+    def _enact(self) -> None:
+        """ Receives a valid ParsedCmd dict and makes it so """
+        if self.current_input is None: # to make the typechecker happy
+            self.err = "Attempted to make a move with no input"
+            return
+
+        if self.current_input.extra_command is True:
+            self.board.extra_commands[self.current_input.clean]()
+            return
+
+        src: Stack = self.KEYMAP[self.current_input.parsed["src"]]
+        dest: Stack = self.KEYMAP[self.current_input.parsed["dest"]]
+        amt: int = self.current_input.parsed["amt"]
+
+        self.board.move_cards(src, dest, amt)
 
 
     def main_loop(self) -> None:
