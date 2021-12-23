@@ -1,9 +1,13 @@
 import unittest
+import sys
+import contextlib
+from io import StringIO
 from types import NoneType
 from src.renderer import Renderer
 from src.board import Board
 from src.deck import Deck
 from src.card import Card
+from src.userinterface import UserInterface
 
 
 class TestAssembleHeader(unittest.TestCase):
@@ -59,6 +63,20 @@ class TestAssembleTableau(unittest.TestCase):
 
 class TestRenderer(unittest.TestCase):
     #TODO: Finish renderer tests
+    def setUp(self):
+        self.b = Board()
+        self.ui = UserInterface(self.b)
+        self.r = Renderer(self.b, self.ui)
+        self.f = StringIO()
+
+
+    # def test_i_did_stdout_correctly(self):
+    #     f = StringIO()
+    #     with contextlib.redirect_stdout(f):
+    #         print("helloworld", end="")
+    #         self.assertEqual(f.getvalue(), "helloworld")
+
+
     def test_draw_header(self):
         pass
 
@@ -70,6 +88,23 @@ class TestRenderer(unittest.TestCase):
     def test_draw(self):
         pass
 
+
+    def test_no_err_msg_without_err(self):
+        """ Ensures that self.err render is empty if there is no err """
+        with contextlib.redirect_stdout(self.f):
+            self.r._draw_err()            
+                
+        self.assertEqual(self.f.getvalue(), "\n")
+
+
+    def test_renders_userinput_err(self):
+        """ Ensures self.err is printed if there is an err """
+        with contextlib.redirect_stdout(self.f):
+            self.ui._get_input(manual_input="this errs")
+            self.ui.current_input.is_valid
+            self.r._draw_err()
+
+        self.assertNotIn(self.f.getvalue(), ["", "\n"])
 
 
 if __name__ == "__main__":

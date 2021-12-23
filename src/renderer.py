@@ -6,8 +6,9 @@ from src.card import Card, MsgCard
 
 class Renderer:
 
-    def __init__(self, board):
+    def __init__(self, board, ui):
         self.board = board
+        self.ui = ui
 
 
     def _assemble_header(self) -> List[List[Card|None]]:
@@ -174,6 +175,13 @@ class Renderer:
             sep="\t"
         )
 
+    
+    def _draw_err(self) -> None:
+        try:
+            print(f"MSG: {self.ui.current_input.err}")
+        except:
+            print()
+
 
     def draw(self) -> None:
         """ One method to call them all, and to the console draw them. """
@@ -186,3 +194,4 @@ class Renderer:
         self._draw_tableau()
         self._draw_section_separator()
         self._draw_controls()
+        self._draw_err()
