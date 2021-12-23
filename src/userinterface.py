@@ -45,6 +45,11 @@ class UserInput:
             self.err = f"Too many or not enough arguments! You entered: {self.raw}"
             return False
 
+        for char in cmd:
+            if char not in Config.KEYMAP.values():
+                self.err = f"Selector '{char}' not recognized!"
+                return False
+
         return True
 
 
