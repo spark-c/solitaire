@@ -6,8 +6,8 @@ from src.userinterface import UserInterface
 
 deck = Deck()
 board = Board()
-renderer = Renderer(board)
 ui = UserInterface(board)
+renderer = Renderer(board, ui)
 
 
 board.deal(deck, shuffle=True)
