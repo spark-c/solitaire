@@ -103,7 +103,7 @@ class UserInterface:
         if manual_input is not None:
             raw_in:str = manual_input
         else:
-            raw_in: str = input()
+            raw_in: str = input("Enter move: ")
 
         self.current_input = UserInput(raw=raw_in)
 
@@ -127,7 +127,9 @@ class UserInterface:
 
     def main_loop(self) -> None:
         """ This function should run one iteration of gathering -> handling input """
-        pass
+        self._get_input()
+        if self.current_input.is_valid:
+            self._enact()
 
 
     def print_help(self) -> None:
