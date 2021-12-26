@@ -24,7 +24,7 @@ class UserInput:
             return self._cleaned
             
         else:
-            no_specials: List[str] = list(filter(lambda c: c.isalnum(), self.raw))
+            no_specials: List[str] = list(filter(lambda c: c.isalnum() or c == '-', self.raw))
             self._cleaned = "".join(no_specials).lower()
             return self._cleaned
 
@@ -115,7 +115,7 @@ class UserInterface:
             return
 
         if self.current_input.extra_command is True:
-            self.board.extra_commands[self.current_input.clean]()
+            self.board.extra_commands[self.current_input.clean](self.board)
             return
 
         src: Stack = self.KEYMAP[self.current_input.parsed["src"]]

@@ -15,7 +15,7 @@ class TestUserInput(unittest.TestCase):
         input_string = self.input_string
         user_input = UserInput(raw=input_string)
 
-        self.assertEqual(user_input.clean, "helloworld123") #type:ignore
+        self.assertEqual(user_input.clean, "hello-world123") #type:ignore
 
     
     def test_is_valid_accepts_help(self):
