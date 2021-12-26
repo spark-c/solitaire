@@ -1,14 +1,16 @@
 import os
-from typing import List, Any
+from typing import List, Any, Optional
 from src.config import Config
 from src.card import Card, MsgCard
+from src.board import Board
+from src.userinterface import UserInterface
 
 
 class Renderer:
 
-    def __init__(self, board, ui):
-        self.board = board
-        self.ui = ui
+    def __init__(self, board:Board, ui:Optional[UserInterface]=None) -> None:
+        self.board: Board = board
+        self.ui: UserInterface = ui if ui else UserInterface(board)
 
 
     def _assemble_header(self) -> List[List[Card|None]]:
@@ -20,7 +22,7 @@ class Renderer:
         Each List[Card|None] represents one row of text in the console.
         None indicates no card in that spot.
         """
-        board = self.board
+        board: Board = self.board
 
         stock: List[Card|None] = board.stock.peek_from_top(last=3)
         waste: List[Card|None] = board.waste.peek_from_top(last=3)
