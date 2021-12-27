@@ -98,12 +98,12 @@ class UserInterface:
         }
 
 
-    def _get_input(self, manual_input:str|None=None) -> None:
+    def _get_input(self, manual_input:Optional[str]=None) -> None:
         """ Prompts user for input, collects, and returns as UserInput """
-        if manual_input is not None:
-            raw_in:str = manual_input
-        else:
+        if manual_input is None:
             raw_in: str = input("Enter move: ")
+        else:
+            raw_in:str = manual_input
 
         self.current_input = UserInput(raw=raw_in)
 
@@ -125,9 +125,13 @@ class UserInterface:
         self.board.move_cards(src, dest, amt)
 
 
-    def main_loop(self) -> None:
+    def main_loop(self, manual_input:Optional[str]=None) -> None:
         """ This function should run one iteration of gathering -> handling input """
-        self._get_input()
+        if manual_input is None:
+            self._get_input()
+        else:
+            self._get_input(manual_input=manual_input)
+
         if self.current_input.is_valid:
             self._enact()
 

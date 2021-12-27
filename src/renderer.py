@@ -179,10 +179,11 @@ class Renderer:
 
     
     def _draw_err(self) -> None:
-        try:
-            print(f"MSG: {self.ui.current_input.err}")
-        except:
+        if self.ui.current_input is None or self.ui.current_input.err is None:
             print()
+            return
+        
+        print(f"MSG: {self.ui.current_input.err}")
 
 
     def draw(self) -> None:

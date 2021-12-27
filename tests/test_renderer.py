@@ -97,6 +97,20 @@ class TestRenderer(unittest.TestCase):
         self.assertEqual(self.f.getvalue(), "\n")
 
 
+    def test_no_err_msg_without_err_after_move(self):
+        """ Same as previous, except makes a move first """
+        d = Deck()
+        b = Board()
+        b.deal(d)
+        ui = UserInterface(b)
+        r = Renderer(b, ui)
+        with contextlib.redirect_stdout(self.f):
+            ui.main_loop(manual_input="121")
+            r._draw_err()
+
+        self.assertEqual(self.f.getvalue(), "\n")
+
+
     def test_renders_userinput_err(self):
         """ Ensures self.err is printed if there is an err """
         with contextlib.redirect_stdout(self.f):
