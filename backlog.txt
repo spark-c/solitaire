@@ -1,0 +1,8 @@
+BUGS:
+- Was unable to move cards from first tableau (index 0)
+- too short input crashes in _enact() with str index out of range error Ln40
+
+ENHANCEMENTS:
+- accept 2char cmds; default amt to 1 such that "43" = "431"
+- accept "." for moving all cards in the stack
+- foundations initial suit detection
