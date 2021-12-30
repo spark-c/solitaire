@@ -18,6 +18,10 @@ class Config:
             "foundations3": "-"
         }
 
+    SPECIALS: Dict[str, str] = {
+        "all": "."
+    }
+
     EXTRA_COMMANDS: Set[str] = {
         "s", # flip stock
         "help"

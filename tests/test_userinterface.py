@@ -16,7 +16,7 @@ class TestUserInput(unittest.TestCase):
         input_string = self.input_string
         user_input = UserInput(raw=input_string)
 
-        self.assertEqual(user_input.clean, "hello-world123") #type:ignore
+        self.assertEqual(user_input.clean, "hello-.world123") #type:ignore
 
     
     def test_is_valid_accepts_help(self):
@@ -78,7 +78,39 @@ class TestUserInput(unittest.TestCase):
                 "dest": "",
                 "amt": 0
             }
-        )        
+        )
+
+    
+    def test_ParsedCmd_with_no_amt(self):
+        input_string = "32"
+        user_input = UserInput(raw=input_string)
+        user_input.is_valid
+
+        self.assertEqual(
+            user_input.parsed,
+            {
+                "command": "32",
+                "src": "3",
+                "dest": "2",
+                "amt": 1
+            }
+        )
+
+
+    def test_ParsedCmd_with_dot(self):
+        input_string = "32."
+        user_input = UserInput(raw=input_string)
+        user_input.is_valid
+
+        self.assertEqual(
+            user_input.parsed,
+            {
+                "command": "32.",
+                "src": "3",
+                "dest": "2",
+                "amt": -1
+            }
+        )
 
 
 if __name__ == "__main__":

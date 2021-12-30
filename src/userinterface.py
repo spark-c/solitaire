@@ -24,8 +24,8 @@ class UserInput:
             return self._cleaned
             
         else:
-            no_specials: List[str] = list(filter(lambda c: c.isalnum() or c == '-', self.raw))
-            self._cleaned = "".join(no_specials).lower()
+            filtered: List[str] = list(filter(lambda c: c.isalnum() or c in ['-', '.'], self.raw))
+            self._cleaned = "".join(filtered).lower()
             return self._cleaned
 
 
@@ -50,7 +50,7 @@ class UserInput:
             return False
 
         for char in cmd:
-            if char not in Config.KEYMAP.values():
+            if char not in Config.KEYMAP.values() and char not in Config.SPECIALS.values():
                 self.err = f"Selector '{char}' not recognized! You entered: {self.raw}"
                 return False
 
