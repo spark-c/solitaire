@@ -1,7 +1,8 @@
-from typing import Dict
+from typing import Dict, Set
 
 class Config:
 
+    # Map board areas/stacks to selectors/keys
     KEYMAP: Dict[str, str] = {
             "waste": "w",
             "tableau0": "1",
@@ -17,7 +18,7 @@ class Config:
             "foundations3": "-"
         }
 
-    EXTRA_COMMANDS = {
-        "s",
+    EXTRA_COMMANDS: Set[str] = {
+        "s", # flip stock
         "help"
     }

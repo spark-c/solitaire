@@ -172,7 +172,7 @@ class Renderer:
             sep="\t"
         )
         print(
-            f"Flip stock: {Config.KEYMAP['flip_stock']}",
+            "Flip stock: s",
             "Move card with 'src dest [amt=1]'",
             sep="\t"
         )
