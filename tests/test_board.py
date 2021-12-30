@@ -144,6 +144,19 @@ class TestStockAndWaste(unittest.TestCase):
         self.assertEqual(len(board.stock), 22)
         self.assertEqual(board.stock[0], bottom_card)
 
+
+    def test_cycle_stock_hides_cards(self):
+        deck = Deck()
+        board = Board()
+        board.deal(deck)
+        board.move_cards(board.stock, board.waste, -1)
+        for card in board.waste.contents:
+            card.reveal()
+
+        board.cycle_stock()
+
+        self.assertFalse(board.stock.contents[-1]._visible)
+
     
     def test_stock_next_flips(self):
         board = Board()

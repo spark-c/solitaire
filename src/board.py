@@ -83,6 +83,8 @@ class Board:
         for card in self.waste.contents:
             if card is None:
                 self.waste.contents.remove(card)
+            card.hide()
+
         self.move_cards(self.waste, self.stock, -1)
 
 
