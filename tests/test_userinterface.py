@@ -26,14 +26,6 @@ class TestUserInput(unittest.TestCase):
         self.assertTrue(user_input.is_valid)
 
 
-    def test_is_valid_rejects_2_or_4_chars(self):
-        input_strings = ["01", "0123"]
-        for string in input_strings:
-            user_input = UserInput(raw=string)
-
-            self.assertFalse(user_input.is_valid)
-
-
     def test_is_valid_accepts_single_stack_selector_reveal(self):
         input_strings = ["w", "2"]
         for string in input_strings:
@@ -87,26 +79,6 @@ class TestUserInput(unittest.TestCase):
                 "amt": 0
             }
         )        
-
-
-class TestEnactCommands(unittest.TestCase):
-
-    def setUp(self) -> None:
-        d = Deck()
-        self.b = Board()
-        self.b.deal(d)
-        self.ui = UserInterface(self.b)
-
-
-    def test_reveal_top_card_in_stack(self):
-        """ Entering just the selector for a stack should reveal its top card """
-        input_string = "2"
-        self.b.tableau[1].pop_from_top()
-        self.assertFalse(self.b.tableau[1][-1]._visible)
-
-        self.ui.main_loop(manual_input=input_string)
-
-        self.assertTrue(self.b.tableau[1][-1]._visible)
 
 
 if __name__ == "__main__":

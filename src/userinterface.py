@@ -45,13 +45,13 @@ class UserInput:
             self.err = f"Source and Destination can't be the same. You entered: {self.raw}"
             return False
 
-        if len(cmd) != 3:
-            self.err = f"Too many or not enough arguments! You entered: {self.raw}"
+        if len(cmd) > 3:
+            self.err = f"Command not recognized (Too many chars)! You entered: {self.raw}"
             return False
 
         for char in cmd:
             if char not in Config.KEYMAP.values():
-                self.err = f"Selector '{char}' not recognized!"
+                self.err = f"Selector '{char}' not recognized! You entered: {self.raw}"
                 return False
 
         return True
@@ -72,12 +72,33 @@ class UserInput:
             raise Exception("Invalid Input! TODO: replace this exception")
 
         cmd: str = self.clean
+        src: str = ""
+        dest: str = ""
+        amt: int = 0
+
+        if self.extra_command:
+            return {
+                "command": cmd,
+                "src": src,
+                "dest": dest,
+                "amt": 0
+            }
+
+        src = cmd[0]
+        dest = cmd[1]
+        if len(cmd) == 2:
+            amt = 1 # default move 1 card if not specified
+        elif cmd[-1] == ".":
+            amt = -1
+        else:
+            amt = int(cmd[2])
+
         return {
-            "command": self.clean,
-            "src": cmd[0] if not self.extra_command else "",
-            "dest": cmd[1] if not self.extra_command else "",
-            "amt": int(cmd[2]) if not self.extra_command else 0
-        }
+                "command": cmd,
+                "src": src,
+                "dest": dest,
+                "amt": amt
+            }
 
         
 class UserInterface:
