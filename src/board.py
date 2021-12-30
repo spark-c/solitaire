@@ -26,7 +26,9 @@ class Board:
     SPACE =         " " * CARD_WIDTH
     SEP =           " | "
     EMPTY_ACE =     " [Ace] "
-    extra_commands = dict() #TODO: NOT IMPLEMENTED
+    extra_commands = {
+        "s": lambda board: board.stock_next,
+    }
 
     #TODO: connect UserInterface error messages to self.err on board to be rendered with the game board
 
@@ -73,6 +75,7 @@ class Board:
                 card.reveal()
         flipped_cards.reverse()
         self.waste.add_cards(flipped_cards)
+
 
     def cycle_stock(self):
         """ Moves all waste cards and flips them into stock """

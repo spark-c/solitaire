@@ -77,7 +77,7 @@ class TestUserInput(unittest.TestCase):
                 "dest": "",
                 "amt": 0
             }
-        )
+        )        
 
 
 class TestUserInterface(unittest.TestCase):

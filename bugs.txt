@@ -1,1 +1,2 @@
 - Was unable to move cards from first tableau (index 0)
+- too short input crashes in _enact() with str index out of range error Ln40

@@ -115,7 +115,7 @@ class UserInterface:
             return
 
         if self.current_input.extra_command is True:
-            self.board.extra_commands[self.current_input.clean](self.board)
+            self.board.extra_commands[self.current_input.clean](self.board)()
             return
 
         src: Stack = self.KEYMAP[self.current_input.parsed["src"]]
