@@ -37,6 +37,10 @@ class UserInput:
             self.extra_command = True
             return True
 
+        # this format used to invoke card.reveal()
+        if len(cmd) == 1 and cmd in Config.KEYMAP.values():
+            return True
+
         if cmd[0] == cmd[1]:
             self.err = f"Source and Destination can't be the same. You entered: {self.raw}"
             return False
@@ -114,8 +118,15 @@ class UserInterface:
             self.err = "Attempted to make a move with no input"
             return
 
+        # execute a command found in board.extra_commands mapping
         if self.current_input.extra_command is True:
             self.board.extra_commands[self.current_input.clean](self.board)()
+            return
+
+        # used to .reveal() topcard in a column
+        if len(self.current_input.clean) == 1:
+            stack: Stack = self.KEYMAP[self.current_input.clean]
+            stack[-1].reveal()
             return
 
         src: Stack = self.KEYMAP[self.current_input.parsed["src"]]

@@ -3,7 +3,6 @@ from typing import Dict
 class Config:
 
     KEYMAP: Dict[str, str] = {
-            "flip_stock": "s",
             "waste": "w",
             "tableau0": "1",
             "tableau1": "2",
@@ -15,8 +14,7 @@ class Config:
             "foundations0": "8",
             "foundations1": "9",
             "foundations2": "0",
-            "foundations3": "-",
-            "help": "help",
+            "foundations3": "-"
         }
 
     EXTRA_COMMANDS = {
