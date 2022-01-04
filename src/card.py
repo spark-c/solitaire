@@ -64,10 +64,6 @@ class MsgCard(Card):
         return self.content
 
     
-    def __repr__(self):
-        return str(self)
-
-    
 @dataclass
 class NoneCard(Card):
     """ Used to indicate an empty place, usually when the user asks for more cards than are present in a Stack. """
@@ -80,10 +76,6 @@ class NoneCard(Card):
 
     def __str__(self):
         return self.content
-
-    
-    def __repr__(self):
-        return str(self)
 
 
     def hide(self) -> None:
