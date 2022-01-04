@@ -1,8 +1,9 @@
+#type: ignore
 import unittest
 from src.board import Board
 from src.stack import Stack
 from src.deck import Deck
-from src.card import Card
+from src.card import Card, NoneCard
 
 
 class TestBoard(unittest.TestCase):
@@ -111,7 +112,7 @@ class TestStockAndWaste(unittest.TestCase):
         board.flip_stock()
         # there are only two cards in stock but it should add a None, so len==3
         self.assertEqual(len(board.waste), 3)
-        self.assertIsNone(board.waste[-1])
+        self.assertEqual(board.waste[-1], NoneCard())
 
 
     def test_cycle_stock_with_no_none(self):

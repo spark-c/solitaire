@@ -80,7 +80,6 @@ class Board:
         """ Moves all waste cards and flips them into stock """
         # TODO: test this method
         for card in self.waste.contents:
-            self.waste.contents.remove(card)
             card.hide()
 
         self.move_cards(self.waste, self.stock, -1)
