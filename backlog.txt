@@ -1,8 +1,7 @@
 BUGS:
 - Was unable to move cards from first tableau (index 0)
 - too short input crashes in _enact() with str index out of range error Ln40
+- using dot in wrong place crashes game. update error handling/validation to catch misplaced dot and add test in test_userinterface.py
 
 ENHANCEMENTS:
-- accept 2char cmds; default amt to 1 such that "43" = "431"
-- accept "." for moving all cards in the stack
 - foundations initial suit detection
