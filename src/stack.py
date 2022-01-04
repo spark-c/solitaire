@@ -84,7 +84,7 @@ class Stack:
 
 
     def peek_from_top(self, last:int=1) -> List[Card]:
-        """ Returns copies of the topmost card(s) from the Stack. Places None where there is no card available. """
+        """ Returns copies of the topmost card(s) from the Stack. Places NoneCard where there is no card available. """
         stop_index: int = 0 - last
         returnable: List[Card] = list()
         i: int = -1
@@ -102,7 +102,7 @@ class Stack:
 
 
     def peek_from_bottom(self, first:int=1) -> List[Card]:
-        """ Returns copies of the buried-most card(s) from the Stack. Places None where there is no card available. """
+        """ Returns copies of the buried-most card(s) from the Stack. Places NoneCard where there is no card available. """
         stop_index: int = 0 + first
         returnable: List[Card] = list()
         i: int = 0

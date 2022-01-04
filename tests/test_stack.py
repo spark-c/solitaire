@@ -1,6 +1,7 @@
+#type: ignore
 import unittest
 from src.stack import Stack
-from src.card import Card
+from src.card import Card, NoneCard
 
 
 class TestStack(unittest.TestCase):
@@ -82,7 +83,7 @@ class TestStack(unittest.TestCase):
         )
         result: List[Card] = s.peek_from_top(last=3)
 
-        self.assertEqual(result, [None, Card(1, Card.HEARTS), Card(3, Card.SPADES)])
+        self.assertEqual(result, [NoneCard(), Card(1, Card.HEARTS), Card(3, Card.SPADES)])
 
 
     def test_peek_from_top_with_no_cards(self):
@@ -90,7 +91,7 @@ class TestStack(unittest.TestCase):
         )
         result: List[Card] = s.peek_from_top(last=3)
 
-        self.assertEqual(result, [None, None, None])
+        self.assertEqual(result, [NoneCard(), NoneCard(), NoneCard()])
 
 
     def test_peek_from_bottom_with_enough_cards(self):
@@ -116,14 +117,14 @@ class TestStack(unittest.TestCase):
         )
         result: List[Card] = s.peek_from_bottom(first=3)
 
-        self.assertEqual(result, [Card(1, Card.HEARTS), Card(3, Card.SPADES), None])
+        self.assertEqual(result, [Card(1, Card.HEARTS), Card(3, Card.SPADES), NoneCard()])
 
     
     def test_peek_from_bottom_with_no_cards(self):
         s = Stack()
         result: List[Card] = s.peek_from_bottom(first=3)
 
-        self.assertEqual(result, [None, None, None])
+        self.assertEqual(result, [NoneCard(), NoneCard(), NoneCard()])
 
 
 if __name__ == "__main__":
