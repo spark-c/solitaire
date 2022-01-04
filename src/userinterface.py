@@ -106,7 +106,7 @@ class UserInterface:
 
     def __init__(self, board: Board):
         self.board: Board = board
-        self.current_input: Optional[UserInput] = None
+        self.current_input: UserInput = UserInput(raw="")
         self.KEYMAP: Dict[str, Stack] = {
             Config.KEYMAP["waste"]: self.board.waste,
             Config.KEYMAP["tableau0"]: self.board.tableau[0],

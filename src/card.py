@@ -25,7 +25,7 @@ class Card:
 
 
     @property
-    def face_value(self, peek=True) -> str:
+    def face_value(self, peek:bool=True) -> str:
         face_lookup: Dict[str, str] = {
             "1": "A",
             "11": "J",
@@ -66,3 +66,31 @@ class MsgCard(Card):
     
     def __repr__(self):
         return str(self)
+
+    
+@dataclass
+class NoneCard(Card):
+    """ Used to indicate an empty place, usually when the user asks for more cards than are present in a Stack. """
+
+    content: str = "       "
+    value: int = 0
+    suit: str = Card.HEARTS
+    _visible: bool = True
+    
+
+    def __str__(self):
+        return self.content
+
+    
+    def __repr__(self):
+        return str(self)
+
+
+    def hide(self) -> None:
+        """ Always visible """
+        return
+
+
+    def reveal(self) -> None:
+        """ Always visible """
+        return

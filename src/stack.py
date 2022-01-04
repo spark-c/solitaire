@@ -1,5 +1,5 @@
-from typing import List
-from src.card import Card
+from typing import List, Optional
+from src.card import Card, NoneCard
 
 
 class Stack:
@@ -8,7 +8,7 @@ class Stack:
     The Cards themselves are accessible via stack.contents
     """
 
-    def __init__(self, input=None) -> None:
+    def __init__(self, input:Optional[List[Card]]=None) -> None:
         # default behavior
         if input is None:
             self.contents: List[Card] = list()
@@ -30,7 +30,7 @@ class Stack:
         return len(self.contents)
 
 
-    def __getitem__(self, n) -> Card:
+    def __getitem__(self, n:int) -> Card:
         return self.contents[n]
 
     
@@ -47,50 +47,52 @@ class Stack:
         if type(input) is not list:
             raise ValueError(f"Argument 'input' must be a list of Cards. (Received {type(input)}).")
 
+        top: List[Card]
+        bottom: List[Card]
         if to == "top":
-            top: List[Card] = input
-            bottom: List[Card] = self.contents
+            top = input
+            bottom = self.contents
         else:
-            top: List[Card] = self.contents
-            bottom: List[Card] = input
+            top = self.contents
+            bottom = input
 
         self.contents = bottom + top
 
 
-    # TODO: Figure out how to add return type "Stack" without getting NameErrors.
-    #       Maybe there is a dunder method like __add__() that can help with this.
-    def pop_from_top(self, last=1):
+    # TODO: add return type "Stack" without getting NameErrors.
+    #       Use "Forward References"! Just surround "Stack" with quotes and Python will understand to resolve the reference later.
+    def pop_from_top(self, last:int=1):
         """ Pops and returns the topmost card(s) from the Stack """
-        returnable: List[Card|None] = list()
-        for i in range(last):
+        returnable: List[Card] = list()
+        for _ in range(last):
             if len(self.contents) > 0:
                 returnable.insert(0, self.contents.pop(-1))
             else:
-                returnable.insert(0, None)
+                returnable.insert(0, NoneCard())
         return Stack(input=returnable)
 
 
-    def pop_from_bottom(self, first=1):
+    def pop_from_bottom(self, first:int=1):
         """ Pops and returns the buried-most card(s) from the Stack. Not useful in standard Solitaire rules. """
-        returnable: List[Card|None] = list()
-        for i in range(first):
+        returnable: List[Card] = list()
+        for _ in range(first):
             if len(self.contents) > 0:
                 returnable.append(self.contents.pop(0))
             else:
-                returnable.append(None)
+                returnable.append(NoneCard())
         return Stack(input=returnable)
 
 
-    def peek_from_top(self, last=1) -> List[Card|None]:
+    def peek_from_top(self, last:int=1) -> List[Card]:
         """ Returns copies of the topmost card(s) from the Stack. Places None where there is no card available. """
         stop_index: int = 0 - last
-        returnable: List[Card|None] = list()
+        returnable: List[Card] = list()
         i: int = -1
         while i >= stop_index:
             try:
                 returnable.insert(0, self.contents[i])
             except:
-                returnable.insert(0, None)
+                returnable.insert(0, NoneCard())
             i -= 1
             
             if -100 > i > 100:
@@ -99,16 +101,16 @@ class Stack:
         return returnable
 
 
-    def peek_from_bottom(self, first=1) -> List[Card|None]:
+    def peek_from_bottom(self, first:int=1) -> List[Card]:
         """ Returns copies of the buried-most card(s) from the Stack. Places None where there is no card available. """
         stop_index: int = 0 + first
-        returnable: List[Card|None] = list()
+        returnable: List[Card] = list()
         i: int = 0
         while i < stop_index:
             try:
                 returnable.append(self.contents[i])
             except:
-                returnable.append(None)
+                returnable.append(NoneCard())
             i += 1
             
             if -100 > i > 100:

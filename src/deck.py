@@ -23,7 +23,7 @@ class Deck(Stack):
         random.shuffle(self.contents)
 
     
-    def pre_deal(self, shuffle=True) -> List[Stack]:
+    def pre_deal(self, shuffle:bool=True) -> List[Stack]:
         """ Deals from the top of the deck into a list of seven Stacks for placing upon the game board. """
         if shuffle is True:
             self.shuffle()

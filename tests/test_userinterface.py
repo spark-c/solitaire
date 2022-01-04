@@ -1,6 +1,5 @@
 import unittest
 from src.board import Board
-from src.deck import Deck
 from src.userinterface import UserInterface, UserInput
 
 

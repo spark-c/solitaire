@@ -1,19 +1,18 @@
-from dataclasses import dataclass
-from contextlib import suppress
-from typing import List
+from typing import List, Dict, Callable
 from src.stack import Stack
 from src.card import Card
+from src.deck import Deck
 
 
 class Foundation(Stack):
     
-    def __init__(self, suit="") -> None:
+    def __init__(self, suit:str="") -> None:
         super().__init__()
         self.suit: str = suit
 
 
     # TODO: when an ace is put in self.contents, should update self.suit
-    def validate_suit(self, stack, suit):
+    def validate_suit(self, stack:Stack, suit:str):
         """ To be used as a @validate_suit decorator for self.add_cards method """
         pass   
     
@@ -22,11 +21,12 @@ class Foundation(Stack):
 
 class Board:
         
-    CARD_WIDTH =    7 # "< ?? >"
-    SPACE =         " " * CARD_WIDTH
-    SEP =           " | "
-    EMPTY_ACE =     " [Ace] "
-    extra_commands = {
+    CARD_WIDTH: int =    7 # "< ?? >"
+    SPACE: str =         " " * CARD_WIDTH
+    SEP: str =           " | "
+    EMPTY_ACE: str =     " [Ace] "
+    # TODO: Fix this type annot mess below. ex_comm["s"](Board)() should be ex_comm["s"](Board). used in userinterface.py
+    extra_commands: Dict[str, Callable[["Board"], Callable[[], None]]] = {
         "s": lambda board: board.stock_next,
     }
 
@@ -46,7 +46,7 @@ class Board:
         return max([len(tab) for tab in self.tableau])
 
 
-    def deal(self, deck, shuffle=True) -> None:
+    def deal(self, deck:Deck, shuffle:bool=True) -> None:
         """ Takes a deck, pre_deal()s it, and places the card Stacks where they belong on the board. """
         # populate the tableau columns w/facedown cards
         for index, stack in enumerate(deck.pre_deal(shuffle=shuffle)):
@@ -71,8 +71,7 @@ class Board:
         """ Takes up to three cards from stock and flips them into waste """
         flipped_cards: List[Card] = self.stock.pop_from_top(3).contents
         for card in flipped_cards:
-            with suppress(AttributeError): # ignoring errors from 'NoneType.reveal()'
-                card.reveal()
+            card.reveal()
         flipped_cards.reverse()
         self.waste.add_cards(flipped_cards)
 
@@ -81,8 +80,7 @@ class Board:
         """ Moves all waste cards and flips them into stock """
         # TODO: test this method
         for card in self.waste.contents:
-            if card is None:
-                self.waste.contents.remove(card)
+            self.waste.contents.remove(card)
             card.hide()
 
         self.move_cards(self.waste, self.stock, -1)
