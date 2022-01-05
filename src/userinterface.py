@@ -49,10 +49,11 @@ class UserInput:
             self.err = f"Command not recognized (Too many chars)! You entered: {self.raw}"
             return False
 
-        for char in cmd:
-            if char not in Config.KEYMAP.values() and char not in Config.SPECIALS.values():
-                self.err = f"Selector '{char}' not recognized! You entered: {self.raw}"
-                return False
+        for index, char in enumerate(cmd):
+            if char not in Config.KEYMAP.values():
+                if char not in Config.SPECIALS.values() or index != 2: #cmd[2], which is allowed to be "."
+                    self.err = f"Selector '{char}' not recognized! You entered: {self.raw}"
+                    return False
 
         return True
 

@@ -111,6 +111,12 @@ class TestUserInput(unittest.TestCase):
             }
         )
 
+    def test_ParsedCmd_with_dot_in_wrong_place(self):
+        input_string = "3.2"
+        user_input = UserInput(raw=input_string)
+        
+        self.assertFalse(user_input.is_valid)
+
 
 if __name__ == "__main__":
     unittest.main()
