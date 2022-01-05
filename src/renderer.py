@@ -29,7 +29,7 @@ class Renderer:
         foundations: List[Card] = list()
         for f in board.foundations:
             found_card: Card = f.peek_from_top()[0]
-            if found_card is None:
+            if type(found_card) is NoneCard:
                 foundations.append(MsgCard(content=board.EMPTY_ACE))
             else:
                 foundations.append(found_card)
