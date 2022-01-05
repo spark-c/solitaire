@@ -41,6 +41,17 @@ class TestBoard(unittest.TestCase):
 
         self.assertTrue(board.tableau[-1][-1]._visible)
 
+
+    def test_cleanup_nonecards(self):
+        board = Board()
+        for group in board.cardgroups:
+            group.add_cards([NoneCard()])
+
+        board.cleanup_nonecards()
+
+        for group in board.cardgroups:
+            self.assertEqual(len(group), 0)
+
     
 class TestMoveCards(unittest.TestCase):
 

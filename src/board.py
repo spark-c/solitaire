@@ -1,6 +1,6 @@
 from typing import List, Dict, Callable
 from src.stack import Stack
-from src.card import Card
+from src.card import Card, NoneCard
 from src.deck import Deck
 
 
@@ -38,12 +38,24 @@ class Board:
         self.tableau: List[Stack] = [Stack() for _ in range(7)]
         self.stock: Stack = Stack()
         self.waste: Stack = Stack()
+        self.cardgroups: List[Stack] = list()
+
+        self._build_cardgroups()
 
 
     @property
     def len_max_tableau(self) -> int:
         """ For use in determining how many rows are needed to draw the board. """
         return max([len(tab) for tab in self.tableau])
+
+
+    def _build_cardgroups(self):
+        self.cardgroups.append(self.stock)
+        self.cardgroups.append(self.stock)
+        for foundation in self.foundations:
+            self.cardgroups.append(foundation)
+        for column in self.tableau:
+            self.cardgroups.append(column)
 
 
     def deal(self, deck:Deck, shuffle:bool=True) -> None:
@@ -91,3 +103,10 @@ class Board:
             self.flip_stock()
         else:
             self.cycle_stock()
+
+
+    def cleanup_nonecards(self):
+        for group in self.cardgroups:
+            for card in group.contents:
+                if type(card) is NoneCard:
+                    group.contents.remove(card)

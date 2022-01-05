@@ -192,3 +192,6 @@ class Renderer:
         self._draw_section_separator()
         self._draw_controls()
         self._draw_err()
+
+        #TODO: This may move elsewhere
+        self.board.cleanup_nonecards()
