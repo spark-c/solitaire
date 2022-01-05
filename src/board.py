@@ -26,8 +26,8 @@ class Board:
     SEP: str =           " | "
     EMPTY_ACE: str =     " [Ace] "
     # TODO: Fix this type annot mess below. ex_comm["s"](Board)() should be ex_comm["s"](Board). used in userinterface.py
-    extra_commands: Dict[str, Callable[["Board"], Callable[[], None]]] = {
-        "s": lambda board: board.stock_next,
+    extra_commands: Dict[str, Callable[["Board"], None]] = {
+        "s": lambda board: board.stock_next(),
     }
 
     #TODO: connect UserInterface error messages to self.err on board to be rendered with the game board

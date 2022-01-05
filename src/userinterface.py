@@ -141,7 +141,7 @@ class UserInterface:
 
         # execute a command found in board.extra_commands mapping
         if self.current_input.extra_command is True:
-            self.board.extra_commands[self.current_input.clean](self.board)()
+            self.board.extra_commands[self.current_input.clean](self.board)
             return
 
         # used to .reveal() topcard in a column

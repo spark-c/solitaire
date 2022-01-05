@@ -2,7 +2,6 @@ BUGS:
 - Was unable to move cards from first tableau (index 0)
 - too short input crashes in _enact() with str index out of range error Ln40
 - using dot in wrong place crashes game. update error handling/validation to catch misplaced dot and add test in test_userinterface.py
-- Fix implementation of Board.extra_commands; see TODO.
 
 ENHANCEMENTS:
 - foundations initial suit detection
