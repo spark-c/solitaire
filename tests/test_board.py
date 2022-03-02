@@ -1,5 +1,5 @@
 #type: ignore
-import unittest
+from unittest import TestCase, mock
 import os
 from src.board import Board
 from src.stack import Stack
@@ -7,7 +7,8 @@ from src.deck import Deck
 from src.card import Card, NoneCard
 
 
-class TestBoard(unittest.TestCase):
+@mock.patch.dict(os.environ, {"GAME_LOGIC": "False"})
+class TestBoard(TestCase):
     
     def test_create_all_fields(self):
         b = Board()
@@ -53,8 +54,9 @@ class TestBoard(unittest.TestCase):
         for group in board.cardgroups:
             self.assertEqual(len(group), 0)
 
-    
-class TestMoveCards(unittest.TestCase):
+
+@mock.patch.dict(os.environ, {"GAME_LOGIC": "False"})
+class TestMoveCards(TestCase):
 
     def test_move(self):
         b = Board()
@@ -103,7 +105,8 @@ class TestMoveCards(unittest.TestCase):
         )
 
 
-class TestStockAndWaste(unittest.TestCase):
+@mock.patch.dict(os.environ, {"GAME_LOGIC": "False"})
+class TestStockAndWaste(TestCase):
 
     def test_flip_stock(self):
         deck = Deck()
@@ -129,7 +132,7 @@ class TestStockAndWaste(unittest.TestCase):
 
     def test_cycle_stock_with_no_none(self):
         """ After stock emptied with a full three cards into waste """  
-        os.environ["GAME_LOGIC"] = "False"
+        # os.environ["GAME_LOGIC"] = "False"
         deck = Deck()
         board = Board()
         board.deal(deck)
@@ -146,7 +149,7 @@ class TestStockAndWaste(unittest.TestCase):
     
     def test_cycle_stock_with_none_values(self):
         """ After stock only had one or two cards to flip into waste """
-        os.environ["GAME_LOGIC"] = "False"
+        # os.environ["GAME_LOGIC"] = "False"
         deck = Deck()
         board = Board()
         board.deal(deck)
@@ -202,4 +205,4 @@ class TestStockAndWaste(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    unittest.main()
+    main()
