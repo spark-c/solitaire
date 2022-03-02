@@ -97,10 +97,13 @@ class Board:
     def cycle_stock(self):
         """ Moves all waste cards and flips them into stock """
         # TODO: test this method
-        for card in self.waste.contents:
-            card.hide()
 
+        # must move before hide() or else game logic prevents moving them b/c hidden
         self.move_cards(self.waste, self.stock, -1)
+        self.stock.contents.reverse() # TODO: test this fact. potential subtle bug
+
+        for card in self.stock.contents:
+            card.hide()
 
 
     def stock_next(self):
