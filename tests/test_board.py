@@ -1,5 +1,6 @@
 #type: ignore
 import unittest
+import os
 from src.board import Board
 from src.stack import Stack
 from src.deck import Deck
@@ -127,12 +128,14 @@ class TestStockAndWaste(unittest.TestCase):
 
 
     def test_cycle_stock_with_no_none(self):
-        """ After stock emptied with a full three cards into waste """        
+        """ After stock emptied with a full three cards into waste """  
+        os.environ["GAME_LOGIC"] = "False"
         deck = Deck()
         board = Board()
         board.deal(deck)
         top_card = board.stock[-1]
         board.move_cards(board.stock, board.waste, -1)
+        board.waste.contents.reverse() # This happens naturally when flip_stock()ing
 
         board.cycle_stock()
 
@@ -143,12 +146,14 @@ class TestStockAndWaste(unittest.TestCase):
     
     def test_cycle_stock_with_none_values(self):
         """ After stock only had one or two cards to flip into waste """
+        os.environ["GAME_LOGIC"] = "False"
         deck = Deck()
         board = Board()
         board.deal(deck)
         bottom_card = board.stock[0]
         board.stock.pop_from_top(2)
         board.move_cards(board.stock, board.waste, -1)
+        board.waste.contents.reverse()
 
         board.cycle_stock()
 
