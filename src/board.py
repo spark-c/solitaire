@@ -1,6 +1,7 @@
 from typing import List, Dict, Callable
 from src.stack import Stack
 from src.card import Card, NoneCard
+from src.config import config
 from src.deck import Deck
 
 
@@ -74,6 +75,11 @@ class Board:
     def move_cards(self, source:Stack, destination:Stack, amt:int) -> None:
         if amt == -1:
             amt = len(source)
+
+        if config.GAME_LOGIC == True:
+            for card in source.contents:
+                if card.visible is False:
+                    amt -= 1
 
         cards_moving: Stack = source.pop_from_top(amt)
         destination.add_cards(cards_moving.contents)
