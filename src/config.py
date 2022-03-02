@@ -29,11 +29,10 @@ class Config:
         "help"
     }
 
-    _GAME_LOGIC: str = os.environ.get("GAME_LOGIC", "True").capitalize()
-
     @property
     def GAME_LOGIC(self) -> bool:
-        return True if self._GAME_LOGIC == "True" else False
+        logic: str = os.environ.get("GAME_LOGIC", "True").capitalize()
+        return True if logic == "True" else False
 
 
 config = Config()
