@@ -1,4 +1,6 @@
+import os
 from typing import Dict, Set
+
 
 class Config:
 
@@ -26,3 +28,12 @@ class Config:
         "s", # flip stock
         "help"
     }
+
+    _GAME_LOGIC: str = os.environ.get("GAME_LOGIC", "True").capitalize()
+
+    @property
+    def GAME_LOGIC(self) -> bool:
+        return True if self._GAME_LOGIC == "True" else False
+
+
+config = Config()
