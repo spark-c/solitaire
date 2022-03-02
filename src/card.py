@@ -1,3 +1,4 @@
+from colorama import Fore, Style
 from dataclasses import dataclass
 from typing import Dict, ClassVar
 
@@ -21,7 +22,7 @@ class Card:
     
     @property
     def color(self) -> str:
-        return "red" if self.suit in [Card.HEARTS, Card.DIAMONDS] else "black"
+        return Fore.RED if self.suit in [Card.HEARTS, Card.DIAMONDS] else Fore.WHITE
 
 
     @property
@@ -38,7 +39,7 @@ class Card:
     
     def __str__(self):
         if self._visible:
-            return f"< {self.face_value} {self.suit} >" if self.face_value != "10" else f"< {self.face_value}{self.suit} >"
+            return f"< {self.face_value} {self.color}{self.suit}{Style.RESET_ALL} >" if self.face_value != "10" else f"< {self.face_value}{self.color}{self.suit}{Style.RESET_ALL} >"
         else:
             return "< ??? >"
 

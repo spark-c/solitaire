@@ -1,8 +1,10 @@
+from colorama import init
 from src.deck import Deck
 from src.board import Board
 from src.renderer import Renderer
 from src.userinterface import UserInterface
 
+init(autoreset=True) # colorama
 
 deck = Deck()
 board = Board()
