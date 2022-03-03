@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from typing import List, Dict, Optional, TypedDict
 from src.config import Config
-from src.logic import check_logic, Ruling, Values
+from src.logic import check_logic, Ruling
 from src.stack import Stack
 from src.board import Board
 
@@ -156,11 +156,19 @@ class UserInterface:
         dest: Stack = self.KEYMAP[self.current_input.parsed["dest"]]
         amt: int = self.current_input.parsed["amt"]
 
-        ruling: Ruling = check_logic(src, dest, amt)
-        vals: Values = ruling["values"]
+        # need to check legality of just the cards moving, not the whole tableau
+        src_to_check: Stack = Stack(
+            self.KEYMAP[
+                self.current_input.parsed["src"]
+            ].peek_from_top(last=amt)
+        )
+       
+        ruling: Ruling = check_logic(src_to_check, dest, amt)
+        allowed_amt = ruling["amt"]
 
         if ruling["is_legal"]:
-            self.board.move_cards(vals["src"], vals["dest"], vals["amt"])
+            self.board.move_cards(src, dest, allowed_amt)
+            self.current_input.err = ruling['err_msg']
         else:
             self.current_input.err = ruling["err_msg"]
 
