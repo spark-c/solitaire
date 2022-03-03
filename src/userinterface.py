@@ -1,6 +1,7 @@
 from dataclasses import dataclass
 from typing import List, Dict, Optional, TypedDict
 from src.config import Config
+from src.logic import check_logic, Ruling, Values
 from src.stack import Stack
 from src.board import Board
 
@@ -155,7 +156,13 @@ class UserInterface:
         dest: Stack = self.KEYMAP[self.current_input.parsed["dest"]]
         amt: int = self.current_input.parsed["amt"]
 
-        self.board.move_cards(src, dest, amt)
+        ruling: Ruling = check_logic(src, dest, amt)
+        vals: Values = ruling["values"]
+
+        if ruling["is_legal"]:
+            self.board.move_cards(vals["src"], vals["dest"], vals["amt"])
+        else:
+            self.current_input.err = ruling["err_msg"]
 
 
     def main_loop(self, manual_input:Optional[str]=None) -> None:
