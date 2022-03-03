@@ -177,7 +177,7 @@ class Renderer:
             print()
             return
         
-        print(f"MSG: {self.ui.current_input.err}")
+        print(f"{self.ui.current_input.err}")
 
 
     def draw(self) -> None:

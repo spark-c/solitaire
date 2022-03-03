@@ -1,5 +1,5 @@
-import unittest
-import sys
+import os
+from unittest import TestCase, main, mock
 import contextlib
 from io import StringIO
 from types import NoneType
@@ -10,14 +10,14 @@ from src.card import Card
 from src.userinterface import UserInterface
 
 
-class TestAssembleHeader(unittest.TestCase):
+class TestAssembleHeader(TestCase):
     def setUp(self):
         d = Deck()
         b = Board()
         r = Renderer(b)
 
         b.deal(d, shuffle=False)
-        self.header = r._assemble_header()
+        self.header = r._assemble_header() #type: ignore
 
 
     def test_contents_are_correct_type(self):
@@ -35,7 +35,7 @@ class TestAssembleHeader(unittest.TestCase):
             self.assertEqual(len(row), 7)
 
 
-class TestAssembleTableau(unittest.TestCase):
+class TestAssembleTableau(TestCase):
     def setUp(self):
         d = Deck()
         b = Board()
@@ -43,7 +43,7 @@ class TestAssembleTableau(unittest.TestCase):
 
         b.deal(d, shuffle=False)
         self.board = b
-        self.tableau = r._assemble_tableau()
+        self.tableau = r._assemble_tableau() #type: ignore
 
 
     def test_contents_are_correct_type(self):
@@ -61,7 +61,7 @@ class TestAssembleTableau(unittest.TestCase):
         self.assertEqual(len(self.tableau), 7)
 
 
-class TestRenderer(unittest.TestCase):
+class TestRenderer(TestCase):
     #TODO: Finish renderer tests
     def setUp(self):
         self.b = Board()
@@ -92,11 +92,12 @@ class TestRenderer(unittest.TestCase):
     def test_no_err_msg_without_err(self):
         """ Ensures that self.err render is empty if there is no err """
         with contextlib.redirect_stdout(self.f):
-            self.r._draw_err()            
+            self.r._draw_err() #type: ignore       
                 
         self.assertEqual(self.f.getvalue(), "\n")
 
 
+    @mock.patch.dict(os.environ, {"GAME_LOGIC": "False"})
     def test_no_err_msg_without_err_after_move(self):
         """ Same as previous, except makes a move first """
         d = Deck()
@@ -106,7 +107,7 @@ class TestRenderer(unittest.TestCase):
         r = Renderer(b, ui)
         with contextlib.redirect_stdout(self.f):
             ui.main_loop(manual_input="121")
-            r._draw_err()
+            r._draw_err() #type: ignore
 
         self.assertEqual(self.f.getvalue(), "\n")
 
@@ -114,12 +115,12 @@ class TestRenderer(unittest.TestCase):
     def test_renders_userinput_err(self):
         """ Ensures self.err is printed if there is an err """
         with contextlib.redirect_stdout(self.f):
-            self.ui._get_input(manual_input="this errs")
+            self.ui._get_input(manual_input="this errs") #type: ignore
             self.ui.current_input.is_valid
-            self.r._draw_err()
+            self.r._draw_err() #type: ignore
 
         self.assertNotIn(self.f.getvalue(), ["", "\n"])
 
 
 if __name__ == "__main__":
-    unittest.main()
+    main()
