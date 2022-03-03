@@ -1,11 +1,12 @@
-import unittest
+import os
+from unittest import TestCase, mock
 from src.board import Board
 from src.deck import Deck
-from src.renderer import Renderer
 from src.userinterface import UserInterface
 
 
-class TestCommands(unittest.TestCase):
+@mock.patch.dict(os.environ, {"GAME_LOGIC": "False"})
+class TestCommands(TestCase):
     def setUp(self) -> None:
         d = Deck()
         self.b = Board()
@@ -31,8 +32,8 @@ class TestCommands(unittest.TestCase):
         """ Entering just the selector for a stack should reveal its top card """
         input_string = "2"
         self.b.tableau[1].pop_from_top()
-        self.assertFalse(self.b.tableau[1][-1]._visible)
+        self.assertFalse(self.b.tableau[1][-1].visible)
 
         self.ui.main_loop(manual_input=input_string)
 
-        self.assertTrue(self.b.tableau[1][-1]._visible)
+        self.assertTrue(self.b.tableau[1][-1].visible)
