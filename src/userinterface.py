@@ -1,5 +1,6 @@
 from dataclasses import dataclass
 from typing import List, Dict, Optional, TypedDict
+from src.card import NoneCard
 from src.config import Config
 from src.logic import check_logic, Ruling
 from src.stack import Stack
@@ -157,11 +158,14 @@ class UserInterface:
         amt: int = self.current_input.parsed["amt"]
 
         # need to check legality of just the cards moving, not the whole tableau
-        src_to_check: Stack = Stack(
-            self.KEYMAP[
-                self.current_input.parsed["src"]
-            ].peek_from_top(last=amt)
+        # also, ignore NoneCards
+        src_no_nones: Stack = Stack(
+            list(filter(
+                lambda card: type(card) is not NoneCard,
+                src.contents
+            ))
         )
+        src_to_check = Stack(src_no_nones.peek_from_top(last=amt))
        
         ruling: Ruling = check_logic(src_to_check, dest, amt)
         allowed_amt = ruling["amt"]

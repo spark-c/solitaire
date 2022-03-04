@@ -1,10 +1,11 @@
 #type: ignore
-from unittest import TestCase, mock
+from unittest import TestCase, main, mock
 import os
 from src.board import Board
 from src.stack import Stack
 from src.deck import Deck
 from src.card import Card, NoneCard
+from src.userinterface import UserInterface
 
 
 @mock.patch.dict(os.environ, {"GAME_LOGIC": "False"})
@@ -103,6 +104,27 @@ class TestMoveCards(TestCase):
                 Card(value=8, suit=Card.HEARTS, _visible=True)                
             ]
         )
+
+    @mock.patch.dict(os.environ, {"GAME_LOGIC": "True"})
+    def test_move_disregards_nonecards_in_stack(self):
+        """
+            Tests that game logic disregards NoneCards in its ruling; previously, the game tried to decide the legality of moving a NoneCard from waste to a tableau!
+        """
+        board = Board()
+        ui = UserInterface(board)
+        board.waste.add_cards([
+            Card(5, Card.HEARTS, _visible=True),
+            Card(7, Card.SPADES, _visible=True),
+            NoneCard()
+        ])
+        board.tableau[0].add_cards([
+            Card(8, Card.DIAMONDS, _visible=True)
+        ])
+
+        ui._get_input(manual_input="w1")
+        ui._enact()
+
+        self.assertEqual(board.tableau[0].length, 2)
 
 
 @mock.patch.dict(os.environ, {"GAME_LOGIC": "False"})
