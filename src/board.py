@@ -1,7 +1,6 @@
 from typing import List, Dict, Callable
 from src.stack import Stack
 from src.card import Card, NoneCard
-from src.config import config
 from src.deck import Deck
 
 
