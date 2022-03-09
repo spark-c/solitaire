@@ -1,4 +1,5 @@
 BUGS:
+- Cannot place K on empty tableau "Tableau valeues must decrement"
 - Fix how "." is handled; if GAME_LOGIC is enabled, it should find how many visible cards there are and move that many.
 - Switch empty amt to mean "all visible" instead of "only one/top card"
 
