@@ -106,7 +106,7 @@ class TestMoveCards(TestCase):
         )
 
     @mock.patch.dict(os.environ, {"GAME_LOGIC": "True"})
-    def test_move_disregards_nonecards_in_stack(self):
+    def test_move_disregards_one_nonecard_in_stack(self):
         """
             Tests that game logic disregards NoneCards in its ruling; previously, the game tried to decide the legality of moving a NoneCard from waste to a tableau!
         """
@@ -125,6 +125,30 @@ class TestMoveCards(TestCase):
         ui._enact()
 
         self.assertEqual(board.tableau[0].length, 2)
+
+
+    @mock.patch.dict(os.environ, {"GAME_LOGIC": "True"})
+    def test_move_disregards_two_nonecards_in_stack(self):
+        """
+            Tests against bug where, when there is one card in waste (followed by two nonecards), it moves the nonecards first.
+
+            (currently not reproducing the bug correctly)
+        """
+        board = Board()
+        ui = UserInterface(board)
+        board.waste.add_cards([
+            Card(5, Card.HEARTS, _visible=True),
+            NoneCard(),
+            NoneCard()
+        ])
+        board.tableau[5].add_cards([
+            Card(6, Card.SPADES, _visible=True)
+        ])
+
+        ui._get_input(manual_input="w6")
+        ui._enact()
+
+        self.assertEqual(board.tableau[5].length, 2)
 
 
 @mock.patch.dict(os.environ, {"GAME_LOGIC": "False"})
