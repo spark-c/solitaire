@@ -1,5 +1,14 @@
 BUGS:
-- when waste pile has only one card (card, nonecard, nonecard) and you try to place into tableau, I think it moves the nonecards before moving the real card
+- when waste pile has only one card (card, nonecard, nonecard) and you try to place into tableau, I think it moves the nonecards before moving the real card. Added test to reproduce but not successful yet.
+
+- Out of index error when attempting to parse an "s" cmd. Traceback:
+    File "C:\Users\Collin Sparks\Desktop\code\solitaire\src\userinterface.py", line 187, in main_loop
+    if self.current_input.is_valid:
+    File "C:\Users\Collin Sparks\Desktop\code\solitaire\src\userinterface.py", line 46, in is_valid
+        if cmd[0] == cmd[1]:
+    IndexError: string index out of range
+
+
 - Fix how "." is handled; if GAME_LOGIC is enabled, it should find how many visible cards there are and move that many.
 - Switch empty amt to mean "all visible" instead of "only one/top card"
 

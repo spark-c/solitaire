@@ -1,6 +1,6 @@
 from colorama import Fore, Style
 from dataclasses import dataclass
-from typing import Dict, ClassVar
+from typing import Any, Dict, ClassVar
 
 
 @dataclass
@@ -46,6 +46,10 @@ class Card:
             return f"< {self.face_value} {self.color}{self.suit}{Style.RESET_ALL} >" if self.face_value != "10" else f"< {self.face_value}{self.color}{self.suit}{Style.RESET_ALL} >"
         else:
             return "< ??? >"
+
+
+    def encode(self) -> Dict[str, Any]:
+        return self.__dict__
 
 
     def reveal(self) -> None:

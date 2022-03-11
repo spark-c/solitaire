@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from typing import List, Dict, Optional, TypedDict
+from typing import Any, List, Dict, Optional, TypedDict
 from src.card import NoneCard
 from src.config import Config
 from src.logic import check_logic, Ruling
@@ -103,6 +103,10 @@ class UserInput:
                 "amt": amt
             }
 
+    
+    def encode(self) -> Dict[str, Any]:
+        return self.__dict__
+
         
 class UserInterface:
     """ Handles collecting, validating, and enacting user input/commands """
@@ -126,12 +130,19 @@ class UserInterface:
         }
 
 
+    def encode(self) -> Dict[str, Any]:
+        return self.__dict__
+
+
     def _get_input(self, manual_input:Optional[str]=None) -> None:
         """ Prompts user for input, collects, and returns as UserInput """
         if manual_input is None:
             raw_in: str = input("Enter move: ")
         else:
             raw_in:str = manual_input
+
+        if raw_in == "qwer":
+            raise Exception("test exception")
 
         self.current_input = UserInput(raw=raw_in)
 

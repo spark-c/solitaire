@@ -1,4 +1,4 @@
-from typing import List, Dict, Callable
+from typing import Any, List, Dict, Callable
 from src.stack import Stack
 from src.card import Card, NoneCard
 from src.deck import Deck
@@ -47,6 +47,10 @@ class Board:
     def len_max_tableau(self) -> int:
         """ For use in determining how many rows are needed to draw the board. """
         return max([len(tab) for tab in self.tableau])
+
+
+    def encode(self) -> Dict[str, Any]:
+        return self.__dict__
 
 
     def _build_cardgroups(self):

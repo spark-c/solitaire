@@ -1,5 +1,5 @@
 import random
-from typing import List
+from typing import Any, Dict, List
 from src.stack import Stack
 from src.card import Card
 
@@ -17,6 +17,10 @@ class Deck(Stack):
             for value in range(1, 14):
                 new_card: Card = Card(suit=suit, value=value)
                 self.contents.append(new_card)
+
+
+    def encode(self) -> Dict[str, Any]:
+        return self.__dict__
 
 
     def shuffle(self) -> None:

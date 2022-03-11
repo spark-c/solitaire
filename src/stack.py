@@ -1,4 +1,4 @@
-from typing import List, Optional
+from typing import Any, Dict, List, Optional
 from src.card import Card, NoneCard
 
 
@@ -32,6 +32,10 @@ class Stack:
 
     def __getitem__(self, n:int) -> Card:
         return self.contents[n]
+
+
+    def encode(self) -> Dict[str, Any]:
+        return self.__dict__
 
     
     def add_cards(self, input:List[Card], *, to:str="top") -> None:
