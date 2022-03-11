@@ -1,4 +1,5 @@
 BUGS:
+- when waste pile has only one card (card, nonecard, nonecard) and you try to place into tableau, I think it moves the nonecards before moving the real card
 - Fix how "." is handled; if GAME_LOGIC is enabled, it should find how many visible cards there are and move that many.
 - Switch empty amt to mean "all visible" instead of "only one/top card"
 

@@ -9,6 +9,7 @@ class Card:
     SPADES: ClassVar[str] = "\u2660"
     DIAMONDS: ClassVar[str] = "\u2666"
     CLUBS: ClassVar[str] = "\u2663"
+    NONE: ClassVar[str] = ""
 
     value: int
     suit: str
@@ -22,6 +23,9 @@ class Card:
     
     @property
     def color(self) -> str:
+        if self.suit == Card.NONE: # for NoneCards
+            return ""
+
         return Fore.RED if self.suit in [Card.HEARTS, Card.DIAMONDS] else Fore.WHITE
 
 
@@ -71,7 +75,7 @@ class NoneCard(Card):
 
     content: str = "       "
     value: int = 14
-    suit: str = Card.HEARTS
+    suit: str = Card.NONE
     _visible: bool = True
     
 
