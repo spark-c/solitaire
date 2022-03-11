@@ -44,3 +44,15 @@ class TestLogic(TestCase):
 
     def test_get_err_on_repeat_suits(self):
         pass
+
+
+    def test_can_place_king_on_empty_tableau(self):
+        b = Board()
+        ui = UserInterface(b)
+        king = Card(13, Card.CLUBS, _visible=True)
+        b.tableau[0].add_cards([king])
+
+        ui._get_input(manual_input="121") #type: ignore
+        ui._enact() #type: ignore
+                
+        self.assertEqual(b.tableau[0].length, 0)

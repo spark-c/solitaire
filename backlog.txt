@@ -1,5 +1,4 @@
 BUGS:
-- Cannot place K on empty tableau "Tableau valeues must decrement"
 - Fix how "." is handled; if GAME_LOGIC is enabled, it should find how many visible cards there are and move that many.
 - Switch empty amt to mean "all visible" instead of "only one/top card"
 
@@ -7,5 +6,4 @@ BUGS:
 - too short input crashes in _enact() with str index out of range error Ln40
 
 ENHANCEMENTS:
-- foundations initial suit detection
 - Stack methods should return Stacks instead of List[Card]. I'd like to remove Stack.contents references, unnecessarily complicated. See TODO on Forward References.

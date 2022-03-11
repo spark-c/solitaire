@@ -70,7 +70,7 @@ class NoneCard(Card):
     """ Used to indicate an empty place, usually when the user asks for more cards than are present in a Stack. """
 
     content: str = "       "
-    value: int = 0
+    value: int = 14
     suit: str = Card.HEARTS
     _visible: bool = True
     
