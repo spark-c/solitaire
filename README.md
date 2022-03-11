@@ -45,5 +45,5 @@ I'm currently finishing bug-squashing the game logic, and then I'll move on to a
 
 1. Clone this repo with `git clone https://github.com/spark-c/solitaire`
 1. Navigate to the project root with `cd solitaire`
-1. /src contains the source code. /tests contains the tests.
-1. The game is started with `py -m run` on Windows; `python3 -m run` for Linux.
+2. Install project dependencies with `pip install -r requirements.txt`
+4. The game is started with `py -m run` on Windows; `python3 -m run` for Linux.
