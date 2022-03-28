@@ -1,12 +1,12 @@
 import os
-from typing import Dict, Set
+from typing import Dict, List, Set
 
 
 class Config:
 
     # Map board areas/stacks to selectors/keys
     KEYMAP: Dict[str, str] = {
-            "waste": "w",
+            "waste": "/",
             "tableau0": "1",
             "tableau1": "2",
             "tableau2": "3",
@@ -25,9 +25,23 @@ class Config:
     }
 
     EXTRA_COMMANDS: Set[str] = {
-        "s", # flip stock
+        "+", # flip stock
         "help"
     }
+
+
+    @property
+    def accepted_chars(self) -> List[str]:
+        extra_cmd_chars: List[str] = list()
+        for cmd in self.EXTRA_COMMANDS:
+            for char in cmd:
+                extra_cmd_chars.append(char)
+        
+        return (
+            list(self.KEYMAP.values()) +
+            list(self.SPECIALS.values()) +
+            extra_cmd_chars
+        )
 
     @property
     def GAME_LOGIC(self) -> bool:

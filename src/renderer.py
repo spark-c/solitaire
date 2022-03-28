@@ -166,7 +166,7 @@ class Renderer:
             sep="\t"
         )
         print(
-            "Flip stock: s",
+            "Flip stock: +",
             "Move card with 'src dest [amt=1]'",
             sep="\t"
         )

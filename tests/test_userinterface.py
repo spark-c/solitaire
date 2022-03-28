@@ -15,7 +15,7 @@ class TestUserInput(unittest.TestCase):
         input_string = self.input_string
         user_input = UserInput(raw=input_string)
 
-        self.assertEqual(user_input.clean, "hello-.world123") #type:ignore
+        self.assertEqual(user_input.clean, "hell-/.l123") #type:ignore
 
     
     def test_is_valid_accepts_help(self):
@@ -26,7 +26,7 @@ class TestUserInput(unittest.TestCase):
 
 
     def test_is_valid_accepts_single_stack_selector_reveal(self):
-        input_strings = ["w", "2"]
+        input_strings = ["/", "2"]
         for string in input_strings:
             user_input = UserInput(raw=string)
 
@@ -65,14 +65,14 @@ class TestUserInput(unittest.TestCase):
 
 
     def test_ParsedCmd_extra_command(self):
-        input_string = "s"
+        input_string = "+"
         user_input = UserInput(raw=input_string)
         user_input.is_valid
         
         self.assertEqual(
             user_input.parsed,
             {
-                "command": "s",
+                "command": "+",
                 "src": "",
                 "dest": "",
                 "amt": 0

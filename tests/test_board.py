@@ -121,7 +121,7 @@ class TestMoveCards(TestCase):
             Card(8, Card.DIAMONDS, _visible=True)
         ])
 
-        ui._get_input(manual_input="w1")
+        ui._get_input(manual_input="/1")
         ui._enact()
 
         self.assertEqual(board.tableau[0].length, 2)
@@ -144,7 +144,7 @@ class TestMoveCards(TestCase):
             Card(6, Card.SPADES, _visible=True)
         ])
 
-        ui._get_input(manual_input="w6")
+        ui._get_input(manual_input="/6")
         ui._enact()
 
         self.assertIn(test_card, board.tableau[5])

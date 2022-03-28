@@ -25,9 +25,10 @@ class Board:
     SPACE: str =         " " * CARD_WIDTH
     SEP: str =           " | "
     EMPTY_ACE: str =     " [Ace] "
-    # TODO: Fix this type annot mess below. ex_comm["s"](Board)() should be ex_comm["s"](Board). used in userinterface.py
+    # TODO: Fix this type annot mess below. ex_comm["+"](Board)() should be ex_comm["+"](Board). used in userinterface.py
+    # TODO: refactor this to check config for stock_next keybind (also TODO)
     extra_commands: Dict[str, Callable[["Board"], None]] = {
-        "s": lambda board: board.stock_next(),
+        "+": lambda board: board.stock_next(),
     }
 
     #TODO: connect UserInterface error messages to self.err on board to be rendered with the game board
