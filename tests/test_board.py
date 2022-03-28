@@ -131,13 +131,12 @@ class TestMoveCards(TestCase):
     def test_move_disregards_two_nonecards_in_stack(self):
         """
             Tests against bug where, when there is one card in waste (followed by two nonecards), it moves the nonecards first.
-
-            (currently not reproducing the bug correctly)
         """
         board = Board()
         ui = UserInterface(board)
+        test_card = Card(5, Card.HEARTS, _visible=True)
         board.waste.add_cards([
-            Card(5, Card.HEARTS, _visible=True),
+            test_card,
             NoneCard(),
             NoneCard()
         ])
@@ -148,7 +147,7 @@ class TestMoveCards(TestCase):
         ui._get_input(manual_input="w6")
         ui._enact()
 
-        self.assertEqual(board.tableau[5].length, 2)
+        self.assertIn(test_card, board.tableau[5])
 
 
 @mock.patch.dict(os.environ, {"GAME_LOGIC": "False"})
