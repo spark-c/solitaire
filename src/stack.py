@@ -70,6 +70,9 @@ class Stack:
         returnable: List[Card] = list()
         for _ in range(last):
             if len(self.contents) > 0:
+                # remove any trailing NoneCards that we shouldn't be moving
+                while self.contents[-1].suit == Card.NONE:
+                    self.contents.pop(-1)
                 returnable.insert(0, self.contents.pop(-1))
             else:
                 returnable.insert(0, NoneCard())
@@ -80,6 +83,9 @@ class Stack:
         """ Pops and returns the buried-most card(s) from the Stack. Not useful in standard Solitaire rules. """
         returnable: List[Card] = list()
         for _ in range(first):
+            # remove any leading NoneCards that we shouldn't be moving
+            while self.contents[0].suit == Card.NONE:
+                self.contents.pop(0)
             if len(self.contents) > 0:
                 returnable.append(self.contents.pop(0))
             else:
