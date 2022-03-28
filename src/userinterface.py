@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from typing import Any, List, Dict, Optional, TypedDict
 from src.card import NoneCard
-from src.config import Config
+from src.config import config
 from src.logic import check_logic, Ruling
 from src.stack import Stack
 from src.board import Board
@@ -24,9 +24,12 @@ class UserInput:
     def clean(self) -> str:
         if self._cleaned:
             return self._cleaned
-            
+        
         else:
-            filtered: List[str] = list(filter(lambda c: c.isalnum() or c in ['-', '.'], self.raw))
+            filtered: List[str] = list(filter(
+                lambda c: c.lower() in config.accepted_chars,
+                self.raw
+            ))
             self._cleaned = "".join(filtered).lower()
             return self._cleaned
 
@@ -35,7 +38,7 @@ class UserInput:
     def is_valid(self) -> bool:
         """ Checks that user input is in a valid format """
         cmd: str = self.clean
-        if cmd in Config.EXTRA_COMMANDS:
+        if cmd in config.EXTRA_COMMANDS:
             self.extra_command = True
             return True
 
@@ -44,7 +47,7 @@ class UserInput:
             return False
 
         # this format used to invoke card.reveal()
-        if len(cmd) == 1 and cmd in Config.KEYMAP.values():
+        if len(cmd) == 1 and cmd in config.KEYMAP.values():
             return True
 
         if cmd[0] == cmd[1]:
@@ -56,8 +59,8 @@ class UserInput:
             return False
 
         for index, char in enumerate(cmd):
-            if char not in Config.KEYMAP.values():
-                if char not in Config.SPECIALS.values() or index != 2: #cmd[2], which is allowed to be "."
+            if char not in config.KEYMAP.values():
+                if char not in config.SPECIALS.values() or index != 2: #cmd[2], which is allowed to be "."
                     self.err = f"Selector '{char}' not recognized! You entered: {self.raw}"
                     return False
 
@@ -119,18 +122,18 @@ class UserInterface:
         self.board: Board = board
         self.current_input: UserInput = UserInput(raw="")
         self.KEYMAP: Dict[str, Stack] = {
-            Config.KEYMAP["waste"]: self.board.waste,
-            Config.KEYMAP["tableau0"]: self.board.tableau[0],
-            Config.KEYMAP["tableau1"]: self.board.tableau[1],
-            Config.KEYMAP["tableau2"]: self.board.tableau[2],
-            Config.KEYMAP["tableau3"]: self.board.tableau[3],
-            Config.KEYMAP["tableau4"]: self.board.tableau[4],
-            Config.KEYMAP["tableau5"]: self.board.tableau[5],
-            Config.KEYMAP["tableau6"]: self.board.tableau[6],
-            Config.KEYMAP["foundations0"]: self.board.foundations[0],
-            Config.KEYMAP["foundations1"]: self.board.foundations[1],
-            Config.KEYMAP["foundations2"]: self.board.foundations[2],
-            Config.KEYMAP["foundations3"]: self.board.foundations[3],
+            config.KEYMAP["waste"]: self.board.waste,
+            config.KEYMAP["tableau0"]: self.board.tableau[0],
+            config.KEYMAP["tableau1"]: self.board.tableau[1],
+            config.KEYMAP["tableau2"]: self.board.tableau[2],
+            config.KEYMAP["tableau3"]: self.board.tableau[3],
+            config.KEYMAP["tableau4"]: self.board.tableau[4],
+            config.KEYMAP["tableau5"]: self.board.tableau[5],
+            config.KEYMAP["tableau6"]: self.board.tableau[6],
+            config.KEYMAP["foundations0"]: self.board.foundations[0],
+            config.KEYMAP["foundations1"]: self.board.foundations[1],
+            config.KEYMAP["foundations2"]: self.board.foundations[2],
+            config.KEYMAP["foundations3"]: self.board.foundations[3],
         }
 
 
