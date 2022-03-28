@@ -39,6 +39,10 @@ class UserInput:
             self.extra_command = True
             return True
 
+        if len(cmd) == 0:
+            self.err = "Empty input!"
+            return False
+
         # this format used to invoke card.reveal()
         if len(cmd) == 1 and cmd in Config.KEYMAP.values():
             return True
